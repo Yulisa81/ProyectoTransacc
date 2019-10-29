@@ -4,6 +4,41 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+
+  <form [formGroup]="myForm" (ngSubmit)="login()">
+    <div style="text-align: center;">
+      <H2>NOMBRE APP</H2>
+      <ion-avatar>
+        <ion-img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"></ion-img>
+      </ion-avatar>
+    
+    </div>
+    <ion-item>
+      <ion-label position="floating">USUARIO:</ion-label>
+      <ion-input formControlName="txtUsuario" [(ngModel)]='usuario.StrUsuario' type="text"></ion-input>
+    </ion-item>
+
+    <ion-item class="fontColor" lines="none" *ngIf="myForm.get('txtUsuario').errors && myForm.get('txtUsuario').dirty">
+      <p class="fontColor" *ngIf="myForm.get('txtUsuario').hasError('required')">Usuario es requerido</p>
+      <p class="fontColor" *ngIf="myForm.get('txtUsuario').hasError('maxlength')">Max de 50 caracteres</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">CONTRASEÑA:</ion-label>
+      <ion-input formControlName="txtPassword" [(ngModel)]='usuario.StrPassword' type="password" (click)="change()"></ion-input>
+    </ion-item>
+
+    <ion-item class="fontColor" lines="none" *ngIf="myForm.get('txtPassword').errors && myForm.get('txtPassword').dirty">
+      <p class="fontColor" *ngIf="myForm.get('txtPassword').hasError('required')">Contraseña es requerida</p>
+      <p class="fontColor" *ngIf="myForm.get('txtPassword').hasError('maxlength')">Max de 50 caracteres</p>
+
+    </ion-item>
+    <br>
+    <br>
+    <ion-button expand="block" type="submit" [disabled]="disabled">INICIAR SESIÓN</ion-button>
+    <br>
+    <a>¿Olvidaste tu contraseña?</a>
+  </form>
 
 </ion-content>
