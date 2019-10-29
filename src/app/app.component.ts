@@ -20,7 +20,23 @@ export class AppComponent {
       title: 'List',
       url: '/list',
       icon: 'list'
+    },
+    {
+      title: 'Persona',
+      url: 'frm-persona',
+      icon: 'person'
+    },
+    {
+      title: 'Transacciones',
+      url: 'frm-transacciones',
+      icon: 'logo-usd'
+    },
+    {
+      title: 'About',
+      url: 'frm-about',
+      icon: 'information-circle'
     }
+   
   ];
 
   constructor(

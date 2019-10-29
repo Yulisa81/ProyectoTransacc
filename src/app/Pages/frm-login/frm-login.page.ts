@@ -39,7 +39,7 @@ export class FrmLoginPage extends CtrlInternetAccessService implements OnInit {
       }
     }
 
-    console.log(consulta.Modelo);
+  
 
     if (this.checkInternetConnection()) {
       console.log("TIENE CONEXION");
@@ -49,10 +49,7 @@ export class FrmLoginPage extends CtrlInternetAccessService implements OnInit {
    /// this.ctrlWebServiceService.getById(consulta.Modelo, "")
      
     this.ctrlWebServiceService.getById(consulta.Modelo, "").then((response)=> {
-      console.log(response);
-      console.log(response["Entity"]);
-     console.log(response["Message"]);
-      this.router.navigate(['frm-principal']);
+     this.router.navigate(['frm-principal']);
 
     });
  
