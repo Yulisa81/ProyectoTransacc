@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonItemSliding } from '@ionic/angular';
+import { Persona } from 'src/app/Shared/Persona';
+
 
 @Component({
   selector: 'app-frm-persona',
@@ -10,14 +12,15 @@ import { IonItemSliding } from '@ionic/angular';
  
 export class FrmPersonaPage implements OnInit {
   slidingList: any;
+  persona : any;
 
-  constructor() { }
+  constructor() {
+    this.persona = ['alicia'];
+   }
 
   ngOnInit() {
   }
-  
-  async delete() {
-    // something
-    await this.slidingList.closeSlidingItems();
+  share(persona: IonItemSliding) {
+    persona.close();
   }
 }
