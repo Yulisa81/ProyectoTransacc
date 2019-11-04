@@ -1,0 +1,11 @@
+<ion-item *ngIf="control.errors && control.dirty">
+  <p class="fontColor" *ngIf="control.hasError('required')">
+    El campo {{ field }} es requerido.
+  </p>
+  <p class="fontColor" *ngIf="control.hasError('maxlength')">
+    Max de {{ lenght }} caracteres.
+  </p>
+  <p class="fontColor" *ngIf="control.hasError('pattern')">
+    {{ extra }}.
+  </p>
+</ion-item>

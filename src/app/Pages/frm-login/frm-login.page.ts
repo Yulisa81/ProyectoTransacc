@@ -5,6 +5,11 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SegUsuario } from 'src/app/Shared/SegUsuario';
 import { CtrlInternetAccessService } from 'src/app/Services/ctrl-internet-access.service';
 import { CtrlWebServiceService } from 'src/app/Services/ctrl-web-service.service';
+import { MenuController } from '@ionic/angular';
+import { CtrlValidator } from '../../../Contol/CtrlValidator';
+import { CtrlGenericInstance } from '../../../Contol/CtrlGenericInstance';
+import { Persona } from '../../Shared/Persona';
+import { async } from '@angular/core/testing';
 
 
 @Component({
@@ -14,33 +19,27 @@ import { CtrlWebServiceService } from 'src/app/Services/ctrl-web-service.service
 })
 export class FrmLoginPage extends CtrlInternetAccessService implements OnInit {
 
-  private myForm: FormGroup;
-  private usuario = new SegUsuario();
+  public myForm: FormGroup;
+  // public usuario = new SegUsuario();
+  public usuario = new Persona();
   public disabled = true;
+  private ctrlValidator = new CtrlValidator();
 
-
-  constructor(private router: Router, private formBuilder: FormBuilder, private ctrlWebServiceService: CtrlWebServiceService) {
+  constructor(private router: Router, private formBuilder: FormBuilder,
+    public menuCtrl: MenuController, private ctrlWebServiceService: CtrlWebServiceService,
+    private ctrlGenericInstance: CtrlGenericInstance) {
     super()
     this.myForm = this.validForm();
   }
 
   ngOnInit() {
-
+    this.menuCtrl.enable(false);
   }
 
 
-  login() {
+  async login() {
 
-
-    var consulta = {
-      Modelo: {
-        StrUsuario: this.usuario.StrUsuario,
-        StrPassword: this.usuario.StrPassword
-      }
-    }
-
-  
-
+    await this.ctrlGenericInstance.mostrarCargando();
     if (this.checkInternetConnection()) {
       console.log("TIENE CONEXION");
     } else {
@@ -48,19 +47,47 @@ export class FrmLoginPage extends CtrlInternetAccessService implements OnInit {
     }
    /// this.ctrlWebServiceService.getById(consulta.Modelo, "")
      
-    this.ctrlWebServiceService.getById(consulta.Modelo, "").then((response)=> {
-     this.router.navigate(['frm-principal']);
+    // this.ctrlWebServiceService.getById(consulta.Modelo, "").then((response)=> {
+    //  this.router.navigate(['frm-principal']);
 
-    });
+    // });
+
+    this.ctrlWebServiceService.create(this.usuario, 'api/Login').then(res => {
+
+      let status = res.json();
+      console.log(res)
+      console.log(status["StatusCode"]);
+
+      if (status["StatusCode"] === 0) {
+        this.router.navigate(['home']);
+
+      }
+      // this.storage.set('name', t["Entity"]);
+    }).catch(e => this.mostrarError(e));
  
+  }
 
 
+  private mostrarError(error) {
+    switch (error.constructor) {
+      case Error:
+        this.ctrlGenericInstance.cerrarCargado();
+        this.ctrlGenericInstance.alertaInformativa(error.message);
+        console.log('generic');
+        break;
+      case RangeError:
+        console.log('range');
+        break;
+      default:
+        console.log('unknown');
+        break;
+    }
   }
 
   private validForm() {
     return this.formBuilder.group({
-      txtUsuario: ['', Validators.compose([Validators.maxLength(50), Validators.required, Validators.email])],
-      txtPassword: ['', Validators.compose([Validators.maxLength(50), Validators.required, Validators.pattern('[a-zA-Z ]*')])]
+      txtUsuario: ['',  this.ctrlValidator.OnlyLettersRequired()],
+      txtPassword: ['', this.ctrlValidator.OnlyNumersRequired()]
 
     });
   }

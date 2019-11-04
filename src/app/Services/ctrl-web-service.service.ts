@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { promise } from 'protractor';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
-import { Persona } from '../Shared/Persona';
+import { Http, Headers, RequestOptions } from '@angular/http';
 
 
 @Injectable({
@@ -10,16 +10,13 @@ import { Persona } from '../Shared/Persona';
 })
 export class CtrlWebServiceService {
 
-  base_path = 'http://50.63.163.241/WSCurso/api/Login';
-  constructor(public http: HttpClient) {
+  base_path = 'http://50.63.163.241/WSCurso/';
+  private headers = new Headers({ 'Content-Type': 'application/json; charset=utf8' });
+  private options = new RequestOptions({ headers: this.headers });
+
+  constructor(public http: Http) {
 
 
-  }
-  // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
   }
 
   // Handle API errors
@@ -40,10 +37,9 @@ export class CtrlWebServiceService {
   };
 
 
-  create(entity, ruta: string): Observable<Persona> {
-      return this.http
-      .post<Persona>(this.base_path, JSON.stringify(entity), this.httpOptions)
-    console.log(this.base_path);
+  create(entity, ruta: string) {
+    return this.http.post(this.base_path+ruta, JSON.stringify({ Entity: entity }), this.options)
+    .toPromise().catch(() => { throw new Error('Ocurio un error en la petición'); });
   }
 
   update(entity: any, ruta: string): any {
