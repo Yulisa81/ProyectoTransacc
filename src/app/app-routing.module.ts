@@ -7,7 +7,7 @@ const routes: Routes = [
     redirectTo: 'frm-login',
     pathMatch: 'full'
   },
-  {
+ {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },

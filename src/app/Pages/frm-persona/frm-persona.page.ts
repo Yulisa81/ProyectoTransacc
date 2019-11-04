@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IonItemSliding } from '@ionic/angular';
+import { IonItemSliding, AlertController } from '@ionic/angular';
 import { Persona } from 'src/app/Shared/Persona';
+import { CtrlWebServiceService } from 'src/app/Services/ctrl-web-service.service';
 
 
 @Component({
@@ -13,14 +14,22 @@ import { Persona } from 'src/app/Shared/Persona';
 export class FrmPersonaPage implements OnInit {
   slidingList: any;
   persona : any;
+  //persona :Persona;
 
-  constructor() {
+  constructor(private alertCtrl : AlertController,private alertController :AlertController, private ctrlWebServiceService :CtrlWebServiceService ) {
     this.persona = ['alicia'];
    }
 
   ngOnInit() {
+    
   }
+
   share(persona: IonItemSliding) {
     persona.close();
   }
+
+  getAll(persona) {
+    this.ctrlWebServiceService.getAll(persona);
+  }
+ 
 }
