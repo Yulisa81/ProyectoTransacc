@@ -60,7 +60,7 @@ export class FrmLoginPage extends CtrlInternetAccessService implements OnInit {
 
       if (status["StatusCode"] === 0) {
         this.router.navigate(['home']);
-
+        this.ctrlGenericInstance.cerrarCargado();
       }
       // this.storage.set('name', t["Entity"]);
     }).catch(e => this.mostrarError(e));
