@@ -18,26 +18,21 @@
               </div>
               <div padding>
                 <ion-item>
-                  <ion-input  formControlName="txtUsuario" [(ngModel)]='usuario.StrUsuario' type="text" placeholder="Username"></ion-input>
+                  <ion-input  formControlName="txtUsuario" [(ngModel)]='usuario.strUsuario' type="text" placeholder="Username"></ion-input>
                 </ion-item>
         
-              <ion-item class="fontColor" lines="none" *ngIf="myForm.get('txtUsuario').errors && myForm.get('txtUsuario').dirty">
-                  <p class="fontColor" *ngIf="myForm.get('txtUsuario').hasError('required')">Usuario es requerido</p>
-                  <p class="fontColor" *ngIf="myForm.get('txtUsuario').hasError('maxlength')">Max de 50 caracteres</p>
-                </ion-item>
+                <app-show-error [control]="myForm.get('txtUsuario')"
+                  [extra]="'Solo letras'"></app-show-error>
 
                 <ion-item>
-                  <ion-input formControlName="txtPassword" [(ngModel)]='usuario.StrPassword' type="password" placeholder="Password"></ion-input>
+                  <ion-input formControlName="txtPassword" [(ngModel)]='usuario.strPassword' type="password" placeholder="Password"></ion-input>
                 </ion-item>
-                <ion-item class="fontColor" lines="none" *ngIf="myForm.get('txtPassword').errors && myForm.get('txtPassword').dirty">
-                    <p class="fontColor" *ngIf="myForm.get('txtPassword').hasError('required')">Contraseña es requerida</p>
-                    <p class="fontColor" *ngIf="myForm.get('txtPassword').hasError('maxlength')">Max de 50 caracteres</p>
-              
-                  </ion-item>
+                <app-show-error [control]="myForm.get('txtPassword')" [field]="'contraseña'" 
+                  [lenght]='10' [extra]="'Solo numeros'"></app-show-error>
               </div>
         
               <div padding>
-                <ion-button size="large" href="/touchid" expand="block" [disabled]="!myForm.valid"> Login</ion-button>
+                <ion-button size="large" type="submit"  expand="block" [disabled]="!myForm.valid"> Login</ion-button>
               </div>
             </ion-col>
           </ion-row>
