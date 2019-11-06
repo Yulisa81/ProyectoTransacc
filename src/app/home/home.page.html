@@ -16,7 +16,9 @@
     <ion-avatar slot="start">
       <ion-img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"></ion-img>
     </ion-avatar>
-    <ion-label>Bienvenido .....</ion-label>
+    <ion-label *ngIf="user !== null" >Bienvenido 
+      <p> {{user.strNombre}} {{user.strAPaterno}} {{user.strAMaterno}} </p> 
+    </ion-label>
   </ion-item>
   <br>
   <ion-item lines="none">

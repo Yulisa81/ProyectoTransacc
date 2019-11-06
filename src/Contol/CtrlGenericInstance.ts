@@ -1,6 +1,6 @@
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-import { isUndefined } from 'util';
+import { isUndefined, isNullOrUndefined } from 'util';
 import { Controles } from 'src/app/Shared/Enum/enumContoles';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Controles } from 'src/app/Shared/Enum/enumContoles';
 })
 export class CtrlGenericInstance {
 
-  public mensaje:string;
+  public mensaje: string;
   private loading: any;
   constructor(private alertController: AlertController,
     private loadingController: LoadingController,
@@ -70,6 +70,25 @@ export class CtrlGenericInstance {
    * Oculta el cargado de la pantalla
    */
   public cerrarCargado() {
-    this.loading.dismiss();
+    if (!isNullOrUndefined(this.loading)) {
+      this.loading.dismiss();
+    }
   }
+
+  public mostrarError(error) {
+    switch (error.constructor) {
+      case Error:
+        this.cerrarCargado();
+        this.alertaInformativa(error.message);
+        console.log('generic');
+        break;
+      case RangeError:
+        console.log('range');
+        break;
+      default:
+        console.log('unknown');
+        break;
+    }
+  }
+
 }

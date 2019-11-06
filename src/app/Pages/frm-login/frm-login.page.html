@@ -20,15 +20,12 @@
                 <ion-item>
                   <ion-input  formControlName="txtUsuario" [(ngModel)]='usuario.strUsuario' type="text" placeholder="Username"></ion-input>
                 </ion-item>
-        
-                <app-show-error [control]="myForm.get('txtUsuario')"
-                  [extra]="'Solo letras'"></app-show-error>
+                <app-show-error [control]="myForm.get('txtUsuario')" [lenght]='50' [extra]="'Solo letras'"></app-show-error>
 
                 <ion-item>
                   <ion-input formControlName="txtPassword" [(ngModel)]='usuario.strPassword' type="password" placeholder="Password"></ion-input>
                 </ion-item>
-                <app-show-error [control]="myForm.get('txtPassword')" [field]="'contraseña'" 
-                  [lenght]='10' [extra]="'Solo numeros'"></app-show-error>
+                <app-show-error [control]="myForm.get('txtPassword')" [field]="'contraseña'" [lenght]='10' [extra]="'Solo numeros'"></app-show-error>
               </div>
         
               <div padding>

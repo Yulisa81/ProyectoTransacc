@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CtrlWebServiceService } from 'src/app/Services/ctrl-web-service.service';
-import { Transaccion } from 'src/app/Shared/Transaccion';
+import { Transaccion } from 'src/app/Shared/Entity/Transaccion';
 
 @Component({
   selector: 'app-frm-transacciones',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonItemSliding, AlertController } from '@ionic/angular';
-import { Persona } from 'src/app/Shared/Persona';
+import { Persona } from 'src/app/Shared/Entity/Persona';
 import { CtrlWebServiceService } from 'src/app/Services/ctrl-web-service.service';
 
 

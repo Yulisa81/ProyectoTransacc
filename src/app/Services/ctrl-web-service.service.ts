@@ -38,8 +38,8 @@ export class CtrlWebServiceService {
 
 
   create(entity, ruta: string) {
-    return this.http.post(this.base_path+ruta, JSON.stringify({ Entity: entity }), this.options)
-    .toPromise().catch(() => { throw new Error('Ocurio un error en la petición'); });
+    return this.http.post(this.base_path + ruta, JSON.stringify({ Entity: entity }), this.options)
+      .toPromise().catch(() => { throw new Error('Ocurio un error en la petición'); });
   }
 
   update(entity: any, ruta: string): any {
@@ -51,8 +51,8 @@ export class CtrlWebServiceService {
   }
 
   getById(entity: any, ruta: string) {
-      return this.http
-        .get(this.base_path + '/' + 2).toPromise();
+    return this.http
+      .get(this.base_path + '/' + 2).toPromise();
   }
   getAll(ruta: string): any {
 

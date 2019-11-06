@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { SegUsuario } from 'src/app/Shared/SegUsuario';
 import { CtrlInternetAccessService } from 'src/app/Services/ctrl-internet-access.service';
 import { CtrlWebServiceService } from 'src/app/Services/ctrl-web-service.service';
 import { MenuController } from '@ionic/angular';
-import { CtrlValidator } from '../../../Contol/CtrlValidator';
-import { CtrlGenericInstance } from '../../../Contol/CtrlGenericInstance';
-import { Persona } from '../../Shared/Persona';
 import { async } from '@angular/core/testing';
+import { EnumRequests } from '../../Shared/Enum/EnumRequest';
+import { Comun } from '../../../Contol/Comun';
+import { EnumNumericValue } from '../../Shared/Enum/EnumNumericValue';
+import { Resource } from '../../../Contol/Resources/Resources';
+import { EnumSegModulo } from '../../Shared/Enum/SegModulo';
+import { Persona } from 'src/app/Shared/Entity/Persona';
 
 
 @Component({
@@ -19,18 +20,20 @@ import { async } from '@angular/core/testing';
 })
 export class FrmLoginPage extends CtrlInternetAccessService implements OnInit {
 
+  //#region Variables
   public myForm: FormGroup;
-  // public usuario = new SegUsuario();
   public usuario = new Persona();
   public disabled = true;
-  private ctrlValidator = new CtrlValidator();
+  //#endregion
 
+  //#region Constructor
   constructor(private router: Router, private formBuilder: FormBuilder,
     public menuCtrl: MenuController, private ctrlWebServiceService: CtrlWebServiceService,
-    private ctrlGenericInstance: CtrlGenericInstance) {
+    private comun: Comun) {
     super()
     this.myForm = this.validForm();
   }
+  //#endregion
 
   ngOnInit() {
     this.menuCtrl.enable(false);
@@ -39,64 +42,37 @@ export class FrmLoginPage extends CtrlInternetAccessService implements OnInit {
 
   async login() {
 
-    await this.ctrlGenericInstance.mostrarCargando();
+    await this.comun.ctrGeneric.mostrarCargando();
     if (this.checkInternetConnection()) {
       console.log("TIENE CONEXION");
     } else {
       console.log("NO TIENE CONEXION");
     }
-   /// this.ctrlWebServiceService.getById(consulta.Modelo, "")
-     
-    // this.ctrlWebServiceService.getById(consulta.Modelo, "").then((response)=> {
-    //  this.router.navigate(['frm-principal']);
-
-    // });
 
     this.ctrlWebServiceService.create(this.usuario, 'api/Login').then(res => {
-
-      let status = res.json();
-      console.log(res)
-      console.log(status["StatusCode"]);
-
-      if (status["StatusCode"] === 0) {
-        this.router.navigate(['home']);
-        this.ctrlGenericInstance.cerrarCargado();
+      let respuesta = res.json();
+      if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
+        this.comun.globalVariable.usuario = respuesta[EnumRequests.Entity];
+        this.comun.ctrGeneric.cerrarCargado();
+        this.router.navigate([EnumSegModulo.Home]);
+      } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
+        this.comun.globalVariable.usuario = null;
+        this.comun.ctrGeneric.cerrarCargado();
+        this.comun.ctrGeneric.alertaInformativa(Resource.MES_DATOS_LOGIN_INCORRETOS);
       }
-      // this.storage.set('name', t["Entity"]);
-    }).catch(e => this.mostrarError(e));
- 
+
+    }).catch(e => this.comun.ctrGeneric.mostrarError(e));
+
   }
 
-
-  private mostrarError(error) {
-    switch (error.constructor) {
-      case Error:
-        this.ctrlGenericInstance.cerrarCargado();
-        this.ctrlGenericInstance.alertaInformativa(error.message);
-        console.log('generic');
-        break;
-      case RangeError:
-        console.log('range');
-        break;
-      default:
-        console.log('unknown');
-        break;
-    }
-  }
-
+  //#region Validaciones
   private validForm() {
     return this.formBuilder.group({
-      txtUsuario: ['',  this.ctrlValidator.OnlyLettersRequired()],
-      txtPassword: ['', this.ctrlValidator.OnlyNumersRequired()]
-
+      txtUsuario: ['', this.comun.ctrlValidate.OnlyLettersRequired()],
+      txtPassword: ['', this.comun.ctrlValidate.OnlyNumersRequired()]
     });
   }
+  //#endregion
 
-  saveData() {
 
-    alert(JSON.stringify(this.myForm.value));
-  }
-  public change() {
-    this.disabled = !this.disabled;
-  }
 }
