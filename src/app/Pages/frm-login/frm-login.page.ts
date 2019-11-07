@@ -59,6 +59,10 @@ export class FrmLoginPage extends CtrlInternetAccessService implements OnInit {
         this.comun.globalVariable.usuario = null;
         this.comun.ctrGeneric.cerrarCargado();
         this.comun.ctrGeneric.alertaInformativa(Resource.MES_DATOS_LOGIN_INCORRETOS);
+      } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
+        this.comun.globalVariable.usuario = null;
+        this.comun.ctrGeneric.cerrarCargado();
+        this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
       }
 
     }).catch(e => this.comun.ctrGeneric.mostrarError(e));

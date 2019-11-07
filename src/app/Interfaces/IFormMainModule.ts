@@ -1,8 +1,7 @@
-export interface IFormMainModule <T>{
+export interface IFormMainModule<T> {
 
-    action(entity: T );
-    showActionPane(module: string, segUsuario: any);
-    showRows();
-    
-    
+    action(entity: T): void;
+    showActionPane(module: string, segUsuario: any): void;
+    showRows(): void;
+
 }

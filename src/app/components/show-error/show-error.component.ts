@@ -12,9 +12,9 @@ export class ShowErrorComponent implements OnInit {
   @Input() field: string;
   @Input() lenght: string = '250';
   @Input() extra: string;
-  
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 }

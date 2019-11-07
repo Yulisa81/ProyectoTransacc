@@ -1,5 +1,7 @@
 {
   "name": "ProyectoTransacc",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

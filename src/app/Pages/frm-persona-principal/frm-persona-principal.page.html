@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      PERSONA
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      refreshingSpinner="circles"
+      refreshingText="Actualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item-sliding #slidingItem *ngFor="let item of items">
+      <ion-item (click)="showSubMenus()">
+        <ion-icon slot="start"></ion-icon>
+        {{ item.strNombre }}
+        <div class="item-note" slot="end">
+          <!-- {{item.note}} -->
+        </div>
+      </ion-item>
+
+      <ion-item-options>
+        <ion-item-option color="default">
+          <ion-icon name="eye"></ion-icon>Ver
+        </ion-item-option>
+        <ion-item-option color="primary" (click)="action(item)">
+          <ion-icon name="create"></ion-icon>Editar
+        </ion-item-option>
+        <ion-item-option color="danger">
+          <ion-icon name="trash"></ion-icon>Delete
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="action()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

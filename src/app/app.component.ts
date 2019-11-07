@@ -23,7 +23,7 @@ export class AppComponent {
     },
     {
       title: 'Persona',
-      url: 'frm-persona',
+      url: 'frm-persona-principal',
       icon: 'person'
     },
     {

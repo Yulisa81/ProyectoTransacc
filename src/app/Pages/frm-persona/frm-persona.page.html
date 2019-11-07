@@ -6,35 +6,59 @@
     <ion-title>
       PERSONA
     </ion-title>
+    <ion-label>[{{actionType}}]</ion-label>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item-sliding #slidingItem *ngFor="let p of persona">
-      <ion-item>
+<ion-content padding>
+  
+  <form [formGroup]="form" (ngSubmit)="login()">
+    <ion-grid>
+        <ion-row justify-content-center>
+          <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+              
+            <ion-label>[DATOS PERSONA]</ion-label>            
+            
+            <div padding>
+              <ion-item>
+                <ion-label position="floating">NOMBRE:</ion-label>
+                <ion-input  formControlName="txtNombre" [(ngModel)]='baseEntity.strNombre' type="text"></ion-input>
+              </ion-item>
+              <app-show-error [control]="form.get('txtNombre')" [field]="'nombre'" [lenght]='50' [extra]="'Solo letras'"></app-show-error>
 
-      </ion-item>
-      <ion-item-options>
-        <ion-item-option color="default">
-          <ion-icon name="eye"></ion-icon>Ver
-        </ion-item-option>
-        <ion-item-option color="primary">
-          <ion-icon name="create"></ion-icon>Editar
-        </ion-item-option>
-        <ion-item-option color="danger" >
-          <ion-icon name="trash"></ion-icon>Delete
-        </ion-item-option>
-       
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+              <ion-item>
+                <ion-label position="floating">APELLIDO PATERNO:</ion-label>
+                <ion-input formControlName="txtAPaterno" [(ngModel)]='baseEntity.strAPaterno' type="text"></ion-input>
+              </ion-item>
+              <app-show-error [control]="form.get('txtAPaterno')" [field]="'apellido paterno'" [lenght]='50' [extra]="'Solo letras'"></app-show-error>
 
+              <ion-item>
+                <ion-label position="floating">APELLIDO MATERNO:</ion-label>
+                <ion-input formControlName="txtAMaterno" [(ngModel)]='baseEntity.strAMaterno' type="text"></ion-input>
+              </ion-item>
+              <app-show-error [control]="form.get('txtAMaterno')" [field]="'apellido materno'" [lenght]='50' [extra]="'Solo letras'"></app-show-error>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+              <ion-item>
+                <ion-label position="floating">CURP:</ion-label>
+                <ion-input formControlName="txtCurp" [(ngModel)]='baseEntity.strCurp' type="text"></ion-input>
+              </ion-item>
+              <app-show-error [control]="form.get('txtCurp')" [field]="'curp'" [lenght]='50' [extra]="'Formato de CURP'"></app-show-error>
+              
+              <ion-item>
+                <ion-label position="floating">CORREO ELECTRONICO:</ion-label>
+                <ion-input formControlName="txtCorreo" [(ngModel)]='baseEntity.strCorreoElectronico' type="text"></ion-input>
+              </ion-item>
+              <app-show-error [control]="form.get('txtCorreo')" [field]="'correo electronico'" [lenght]='50' [extra]="'Formato de correo electronico'"></app-show-error>
+                            
+            </div>
+      
+            <div padding>
+              <ion-button size="large" type="submit"  expand="block" [disabled]="!form.valid"> Aceptar</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+ 
+</form>
 
 </ion-content>
