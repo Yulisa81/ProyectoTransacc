@@ -3,8 +3,8 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-     <ion-title>
-      NOMBRE APP
+    <ion-title>
+      TRANSAC APP
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -16,8 +16,8 @@
     <ion-avatar slot="start">
       <ion-img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"></ion-img>
     </ion-avatar>
-    <ion-label *ngIf="user !== null" >Bienvenido 
-      <p> {{user.strNombre}} {{user.strAPaterno}} {{user.strAMaterno}} </p> 
+    <ion-label *ngIf="user !== null">Bienvenido
+      <p> {{user.strNombre}} {{user.strAPaterno}} {{user.strAMaterno}} </p>
     </ion-label>
   </ion-item>
   <br>
@@ -37,15 +37,5 @@
     </ion-label>
     <br>
   </ion-item>
-  <ion-item>
-      <ion-label position="stacked">Stacked</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-        <div slot="start"></div>
-        <ion-label>Item Label</ion-label>
-        <div slot="end"></div>
-      </ion-item>
-      
-    
+ 
 </ion-content>

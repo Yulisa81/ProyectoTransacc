@@ -11,14 +11,11 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
-  {
-    path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
-  },
-  { path: 'frm-login', loadChildren: './Pages/frm-login/frm-login.module#FrmLoginPageModule' },
+   { path: 'frm-login', loadChildren: './Pages/frm-login/frm-login.module#FrmLoginPageModule' },
     { path: 'frm-persona', loadChildren: './Pages/frm-persona/frm-persona.module#FrmPersonaPageModule' },
   { path: 'frm-transacciones', loadChildren: './Pages/frm-transacciones/frm-transacciones.module#FrmTransaccionesPageModule' },
-  { path: 'frm-about', loadChildren: './Pages/frm-about/frm-about.module#FrmAboutPageModule' },  { path: 'frm-persona-principal', loadChildren: './Pages/frm-persona-principal/frm-persona-principal.module#FrmPersonaPrincipalPageModule' }
+  { path: 'frm-about', loadChildren: './Pages/frm-about/frm-about.module#FrmAboutPageModule' },
+  { path: 'frm-persona-principal', loadChildren: './Pages/frm-persona-principal/frm-persona-principal.module#FrmPersonaPrincipalPageModule' }
 
 ];
 

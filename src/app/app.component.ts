@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SegUsuario } from './Shared/Entity/SegUsuario';
+import { Comun } from 'src/Contol/Comun';
 
 @Component({
   selector: 'app-root',
@@ -10,18 +12,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  public user = new SegUsuario();
   public appPages = [
     {
       title: 'Home',
       url: '/home',
       icon: 'home'
     },
-    {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    },
-    {
+      {
       title: 'Persona',
       url: 'frm-persona-principal',
       icon: 'person'
@@ -35,6 +33,11 @@ export class AppComponent {
       title: 'About',
       url: 'frm-about',
       icon: 'information-circle'
+    },
+    {
+      title: 'Logout',
+      url: 'frm-login',
+      icon: 'arrow-round-forward'
     }
    
   ];
@@ -42,11 +45,15 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private comun: Comun
   ) {
     this.initializeApp();
   }
 
+  async ngOnInit() {
+      this.user = this.comun.globalVariable.usuario;
+  }
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();

@@ -1,24 +1,33 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu type="overlay">
-      <ion-header>
-        <ion-toolbar color ="primary">
-          <ion-title>NOMBRE APP</ion-title>
-        </ion-toolbar>
-      </ion-header>
+ 
+    <ion-menu  id="menu-material">
       <ion-content>
+        <div class="menu-header">
+         
+          <img class="user-avatar round" style="height:90px;max-width:90px;" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"/>
+ 
+          <p class="name">PIXIR</p>
+          <ion-label *ngIf="user !== null">
+              <!--<p class="e-mail"> {{user.strNombre}} {{user.strAPaterno}} {{user.strAMaterno}} </p>-->
+          </ion-label>
+         
+        </div>    
         <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label color="light">
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+            <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+              <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+                <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                <ion-label >
+                  {{p.title}}
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
       </ion-content>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>
+
+  
+
 </ion-app>
