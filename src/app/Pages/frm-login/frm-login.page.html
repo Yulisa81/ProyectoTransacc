@@ -14,7 +14,7 @@
               <div class="ion-padding">
                 <ion-item>
                     <ion-label position="floating">USUARIO:</ion-label>
-                  <ion-input  formControlName="txtUsuario" [(ngModel)]='usuario.strUsuario' type="text" ></ion-input>
+                    <ion-input  formControlName="txtUsuario" [(ngModel)]='usuario.strUsuario' type="text" ></ion-input>
                 </ion-item>
                 <app-show-error [control]="myForm.get('txtUsuario')" [lenght]='50' [extra]="'Solo letras'"></app-show-error>
 
@@ -22,7 +22,7 @@
                   <ion-label position="floating">CONTRASEÑA:</ion-label>
                   <ion-input formControlName="txtPassword" [(ngModel)]='usuario.strPassword' type="password" ></ion-input>
                 </ion-item>
-                <app-show-error [control]="myForm.get('txtPassword')" [field]="'contraseña'" [lenght]='10' [extra]="'Solo numeros'"></app-show-error>
+                <app-show-error [control]="myForm.get('txtPassword')" [field]="'contraseña'" [lenght]='10' [extra]="'Solo numeros'"> </app-show-error>
               </div>
         
               <div class="ion-padding">
