@@ -9,6 +9,8 @@ import { EnumSegModulo } from '../../Shared/Enum/SegModulo';
 import { Storage } from '@ionic/storage';
 import { async } from '@angular/core/testing';
 import { EnumNumericValue } from '../../Shared/Enum/EnumNumericValue';
+import { EnumRequests } from '../../Shared/Enum/EnumRequest';
+import { Resource } from '../../../Contol/Resources/Resources';
 
 @Component({
   selector: 'app-frm-persona-principal',
@@ -27,7 +29,7 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
 
   ngOnInit() {
     this.showActionPane('', '');
-    this.showRows();
+    //this.showRows();
   }
 
   //#region Mostrar SubMenus
@@ -86,9 +88,20 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
   }
 
   showRows() {
-    for (let i = 0; i < 2; i++) {
-      this.items.push(this.comun.globalVariable.usuario);
-    }
+    this.ctrlWebServiceService.getAll('api/Persona').then(res => {
+      let respuesta = res.json();
+      if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
+        this.items = respuesta[EnumRequests.EntityList];
+        this.comun.ctrGeneric.cerrarCargado();
+      } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
+        this.items = null;
+        this.comun.ctrGeneric.cerrarCargado();
+        this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
+      }
+    });
+    // for (let i = 0; i < 2; i++) {
+    //   this.items.push(this.comun.globalVariable.usuario);
+    // }
   }
   //#endregion
 

@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -8,11 +8,13 @@
     </ion-title>
     <ion-label>[{{actionType}}]</ion-label>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
+
+<app-header [titulo]="'Persona'" [agregar]="actionType ==='AGREGAR'" ></app-header>
 
 <ion-content padding>
   
-  <form [formGroup]="form" (ngSubmit)="login()">
+  <form [formGroup]="form" (ngSubmit)="aceptar()">
     <ion-grid>
         <ion-row justify-content-center>
           <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
@@ -39,6 +41,12 @@
               <app-show-error [control]="form.get('txtAMaterno')" [field]="'apellido materno'" [lenght]='50' [extra]="'Solo letras'"></app-show-error>
 
               <ion-item>
+                <ion-label position="floating">FECHA NACIMIENTO:</ion-label>
+                <ion-input formControlName="txtFechaNacimiento" [(ngModel)]='baseEntity.dteFechaNacimiento' type="text"></ion-input>
+              </ion-item>
+              <app-show-error [control]="form.get('txtFechaNacimiento')" [field]="'Fecha Nacimiento'" [lenght]='50' [extra]="'Solo letras'"></app-show-error>
+
+              <ion-item>
                 <ion-label position="floating">CURP:</ion-label>
                 <ion-input formControlName="txtCurp" [(ngModel)]='baseEntity.strCurp' type="text"></ion-input>
               </ion-item>
@@ -49,7 +57,20 @@
                 <ion-input formControlName="txtCorreo" [(ngModel)]='baseEntity.strCorreoElectronico' type="text"></ion-input>
               </ion-item>
               <app-show-error [control]="form.get('txtCorreo')" [field]="'correo electronico'" [lenght]='50' [extra]="'Formato de correo electronico'"></app-show-error>
-                            
+                
+              <ion-item>
+                <ion-label position="floating">USUARIO:</ion-label>
+                <ion-input formControlName="txtUsuario" [(ngModel)]='baseEntity.strUsuario' type="text"></ion-input>
+              </ion-item>
+              <app-show-error [control]="form.get('txtUsuario')" [field]="'usuario'" [lenght]='50' [extra]="''"></app-show-error>
+                
+              <ion-item>
+                <ion-label position="floating">CONTRASEÑA:</ion-label>
+                <ion-input formControlName="txtPassword" [(ngModel)]='baseEntity.strPassword' type="text"></ion-input>
+              </ion-item>
+              <app-show-error [control]="form.get('txtPassword')" [field]="'contraseña'" [lenght]='50' [extra]="''"></app-show-error>
+               
+
             </div>
       
             <div padding>

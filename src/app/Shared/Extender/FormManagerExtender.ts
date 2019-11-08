@@ -11,8 +11,6 @@ export class FormManagerExtender {
 
     public initializeComponent<T>(form: any, BaseEntity: T) {
         try {
-            console.log(form)
-            console.log(BaseEntity)
             if (isNullOrUndefined(BaseEntity)) {
                 form.AccionForm = AccionForm.AGREGAR;
                 form.actionType = AccionForm.AGREGAR.toString();
@@ -25,7 +23,7 @@ export class FormManagerExtender {
             form.setEntity();
             form.getEntity();
         } catch (error) {
-            throw error; // new Error('Error en la carga del metodo');
+            throw new Error('Error en la inicializacion de los componentes.');
         }
     }
 

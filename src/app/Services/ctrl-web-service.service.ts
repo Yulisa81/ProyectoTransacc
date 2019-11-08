@@ -39,6 +39,7 @@ export class CtrlWebServiceService {
       .get(this.base_path + '/' + 2).toPromise();
   }
   getAll(ruta: string): any {
-
+    return this.http.get(this.base_path + ruta, this.options)
+    .toPromise().catch(() => { throw new Error('Ocurio un error en la petición.'); });
   }
 }

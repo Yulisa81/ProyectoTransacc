@@ -7,5 +7,5 @@ export class SegUsuario {
     strCurp: string;
     strCorreoElectronico: string;
     strUsuario: string;
-    strPasswor: string;
+    strPassword: string;
 }

@@ -8,10 +8,13 @@ import { SegUsuario } from '../../Shared/Entity/SegUsuario';
 import { Router } from '@angular/router';
 import { EnumSegModulo } from '../../Shared/Enum/SegModulo';
 import { Storage } from '@ionic/storage';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { isNullOrUndefined } from 'util';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { isNullOrUndefined, isNull } from 'util';
 import { IFormManager } from '../../Interfaces/IFormManager';
 import { FormManagerExtender } from '../../Shared/Extender/FormManagerExtender';
+import { EnumRequests } from '../../Shared/Enum/EnumRequest';
+import { EnumNumericValue } from '../../Shared/Enum/EnumNumericValue';
+import { Resource } from '../../../Contol/Resources/Resources';
 
 @Component({
   selector: 'app-frm-persona',
@@ -38,7 +41,7 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
   //#region Metodos IFormManager
 
   loadInformation(entity: SegUsuario) {
-    
+
   }
   setEntity() {
 
@@ -55,13 +58,13 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
   //#region Metodo IONIC
   ngOnInit() {
     this.form = this.validForm();
-    this.extende.initializeComponent(this, this.baseEntity);
     this.storage.get('persona').then((val) => {
       if (!isNullOrUndefined(val)) {
         this.baseEntity = val;
       }
+      this.extende.initializeComponent(this, val);
       console.log('persona', val);
-    });
+    }).catch(e => this.comun.ctrGeneric.mostrarError(e));
   }
 
   ngOnDestroy() {
@@ -70,9 +73,23 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
   //#endregion
 
   //#region Metodos Genericos
-  login() {
+  aceptar() {
+    console.log(this.baseEntity);
+    this.ctrlWebServiceService.create(this.baseEntity, 'api/Persona').then(res => {
+      let respuesta = res.json();
+      if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
+        this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
+        this.comun.ctrGeneric.cerrarCargado();
+      } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
+        this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
+      } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
+        this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
+      }
+    });
   }
-
+  registro2(form: NgForm) {
+    console.log(form)
+  }
   //#endregion
 
 
@@ -84,6 +101,9 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
       txtAMaterno: ['', this.comun.ctrlValidate.Required()],
       txtCurp: ['', this.comun.ctrlValidate.Required()],
       txtCorreo: ['', this.comun.ctrlValidate.Required()],
+      txtFechaNacimiento: ['', this.comun.ctrlValidate.Required()],
+      txtUsuario: ['', this.comun.ctrlValidate.Required()],
+      txtPassword: ['', this.comun.ctrlValidate.Required()],
     });
   }
 
