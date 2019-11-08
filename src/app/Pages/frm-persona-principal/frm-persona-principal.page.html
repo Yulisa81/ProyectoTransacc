@@ -10,18 +10,19 @@
 </ion-header>
 
 <ion-content>
-  
+
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-      refreshingSpinner="circles"
-      refreshingText="Actualizando...">
+    <ion-refresher-content refreshingSpinner="circles" refreshingText="Actualizando...">
     </ion-refresher-content>
   </ion-refresher>
 
   <ion-list>
     <ion-item-sliding #slidingItem *ngFor="let item of items">
       <ion-item (click)="showSubMenus()">
-        <ion-icon slot="start"></ion-icon>
+       <!-- <ion-icon slot="start"></ion-icon>-->
+        <ion-avatar slot="start">
+          <ion-img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"></ion-img>
+        </ion-avatar>
         {{ item.strNombre }}
         <div class="item-note" slot="end">
           <!-- {{item.note}} -->
