@@ -1,24 +1,28 @@
 <ion-header>
-  
-      <ion-row>
 
-        <ion-col>
-          <ion-toolbar>
-            <ion-buttons slot="start">  
-                <ion-back-button slot="start" defaultHref="/home"></ion-back-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-col>
+  <ion-row>
 
-        <ion-col>
-          <ion-title>{{titulo}}</ion-title>
-        </ion-col>
+    <ion-col>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button slot="start" defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-col>
+    <ion-col>
+      <ion-title>{{titulo}}</ion-title>
+    </ion-col>
 
-        <ion-col>
-            <img *ngIf="agregar" src="assets/Img/add-file.png" height="20px" width="20px" />
+    <ion-col>     
+      <ion-thumbnail slot="end">
+          <img *ngIf="agregar" src="assets/Img/add-file.png" height="20px" width="20px" />
+        </ion-thumbnail>
+        <ion-thumbnail slot="end">
             <img *ngIf="!agregar" src="assets/Img/edit-file.png" height="20px" width="20px" />
-        </ion-col>
+          </ion-thumbnail>
+     
+    </ion-col>
 
-      </ion-row>
+  </ion-row>
 
 </ion-header>

@@ -6,27 +6,38 @@
           <ion-row class="justify-content-center">
             <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
               <div class="ion-text-center">
-                <h4>Pixir Transaction</h4>
-                <ion-avatar>
-                    <ion-img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"></ion-img>
-                  </ion-avatar>
+                <h4>TranscApp</h4>
+
+             <br>
+            
+                  <div >         
+                    <img class='imgRedonda' style="height:90px;max-width:90px;" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"/>                  
+                  </div> 
               </div>
               <div class="ion-padding">
                 <ion-item>
-                    <ion-label position="floating">USUARIO:</ion-label>
+                    <ion-label position="floating"><ion-icon name="person" slot="start"></ion-icon> USUARIO:</ion-label>
                     <ion-input  formControlName="txtUsuario" [(ngModel)]='usuario.strUsuario' type="text" ></ion-input>
+                   
+                  
                 </ion-item>
                 <app-show-error [control]="myForm.get('txtUsuario')" [lenght]='50' [extra]="'Solo letras'"></app-show-error>
 
                 <ion-item>
-                  <ion-label position="floating">CONTRASEÑA:</ion-label>
+                  <ion-label position="floating"><ion-icon name="key" item-left></ion-icon> CONTRASEÑA: </ion-label>
                   <ion-input formControlName="txtPassword" [(ngModel)]='usuario.strPassword' type="password" ></ion-input>
+                 
                 </ion-item>
                 <app-show-error [control]="myForm.get('txtPassword')" [field]="'contraseña'" [lenght]='10' [extra]="'Solo numeros'"> </app-show-error>
               </div>
         
               <div class="ion-padding">
-                <ion-button size="large" type="submit"  expand="block" [disabled]="!myForm.valid"> Login</ion-button>
+                <ion-button size="medium" type="submit"  expand="block" [disabled]="!myForm.valid"> Login</ion-button>
+              </div>
+              <div>
+                <ion-label>
+                  ¿Has olviddo tu contraseña?
+                </ion-label>
               </div>
             </ion-col>
           </ion-row>
