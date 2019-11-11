@@ -27,11 +27,13 @@ export class CtrlWebServiceService {
   }
 
   update(entity: any, ruta: string): any {
-
+    return this.http.put(this.base_path + ruta + '/' + entity.id, JSON.stringify({ Entity: entity }), this.options)
+      .toPromise().catch(() => { throw new Error('Ocurio un error en la petición.'); });
   }
 
   delete(entity: any, ruta: string): any {
-
+    return this.http.delete(this.base_path + ruta + '/' + entity.id, this.options)
+    .toPromise().catch(() => { throw new Error('Ocurio un error en la petición.'); });
   }
 
   getById(entity: any, ruta: string) {
@@ -40,6 +42,6 @@ export class CtrlWebServiceService {
   }
   getAll(ruta: string): any {
     return this.http.get(this.base_path + ruta, this.options)
-    .toPromise().catch(() => { throw new Error('Ocurio un error en la petición.'); });
+      .toPromise().catch(() => { throw new Error('Ocurio un error en la petición.'); });
   }
 }
