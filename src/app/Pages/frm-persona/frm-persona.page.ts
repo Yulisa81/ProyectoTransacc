@@ -75,17 +75,37 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
   //#region Metodos Genericos
   aceptar() {
     console.log(this.baseEntity);
-    this.ctrlWebServiceService.create(this.baseEntity, 'api/Persona').then(res => {
-      let respuesta = res.json();
-      if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
-        this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
-        this.comun.ctrGeneric.cerrarCargado();
-      } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
-        this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
-      } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
-        this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
-      }
-    });
+
+    if (this.baseEntity.id === EnumNumericValue.Cero) {
+
+      this.ctrlWebServiceService.create(this.baseEntity, 'api/Persona').then(res => {
+        let respuesta = res.json();
+        if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
+          this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
+          this.comun.ctrGeneric.cerrarCargado();
+        } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
+          this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
+        } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
+          this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
+        }
+      });
+
+    } else {
+
+      this.ctrlWebServiceService.update(this.baseEntity, 'api/Persona').then(res => {
+        let respuesta = res.json();
+        if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
+          this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
+          this.comun.ctrGeneric.cerrarCargado();
+        } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
+          this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
+        } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
+          this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
+        }
+      });
+
+    }
+
   }
   registro2(form: NgForm) {
     console.log(form)

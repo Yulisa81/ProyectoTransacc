@@ -29,7 +29,7 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
 
   ngOnInit() {
     this.showActionPane('', '');
-    //this.showRows();
+    this.showRows();
   }
 
   //#region Mostrar SubMenus
@@ -53,6 +53,14 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
     console.log(entity)
     this.baseEntity = entity;
     this.editItem();
+  }
+
+  async delete(entity) {
+    // obtener la accion del nombre del boton
+    console.log(entity)
+    this.ctrlWebServiceService.delete(entity, 'api/Persona').then(() => {
+      this.showRows();
+  });
   }
 
   showActionPane(module: string, segUsuario: any) {
@@ -88,7 +96,7 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
   }
 
   showRows() {
-    this.ctrlWebServiceService.getAll('api/Persona').then(res => {
+    return this.ctrlWebServiceService.getAll('api/Persona').then(res => {
       let respuesta = res.json();
       if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
         this.items = respuesta[EnumRequests.EntityList];
@@ -107,10 +115,7 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
 
   //#region Refresh datos
   doRefresh(event) {
-    setTimeout(() => {
-      event.target.complete();
-      this.showRows();
-    }, 2000);
+    this.showRows().then(() => { event.target.complete(); });
   }
   //#endregion
 
