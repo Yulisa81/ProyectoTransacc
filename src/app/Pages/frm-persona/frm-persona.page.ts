@@ -95,7 +95,7 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
       this.ctrlWebServiceService.update(this.baseEntity, 'api/Persona').then(res => {
         let respuesta = res.json();
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
-          this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
+          this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_EDITAR);
           this.comun.ctrGeneric.cerrarCargado();
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
           this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
