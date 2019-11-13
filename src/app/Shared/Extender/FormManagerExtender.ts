@@ -2,6 +2,7 @@ import { AccionForm } from '../Enum/enumContoles';
 import { Injectable } from '@angular/core';
 import { isNullOrUndefined } from 'util';
 import { Promise, resolve,reject } from 'q';
+import { EnumNumericValue } from '../Enum/EnumNumericValue';
 
 @Injectable({
     providedIn: 'root'
@@ -17,8 +18,9 @@ export class FormManagerExtender {
             } else {
                 form.AccionForm = AccionForm.EDITAR;
                 form.actionType = AccionForm.EDITAR.toString();
-                form.BaseEntity = BaseEntity;
+                form.baseEntity = BaseEntity;
             }
+
             form.loadInformation();
             form.setEntity();
             form.getEntity();

@@ -21,19 +21,19 @@ export class CtrlWebServiceService {
   }
   //#endregion
 
-  create(entity, ruta: string) {
+  create(entity: any, ruta: string) {
     return this.http.post(this.base_path + ruta, JSON.stringify({ Entity: entity }), this.options)
       .toPromise().catch(() => { throw new Error('Ocurio un error en la petición.'); });
   }
 
-  update(entity: any, ruta: string): any {
+  update(entity: any, ruta: string) {
     return this.http.put(this.base_path + ruta + '/' + entity.id, JSON.stringify({ Entity: entity }), this.options)
       .toPromise().catch(() => { throw new Error('Ocurio un error en la petición.'); });
   }
 
-  delete(entity: any, ruta: string): any {
+  delete(entity: any, ruta: string) {
     return this.http.delete(this.base_path + ruta + '/' + entity.id, this.options)
-    .toPromise().catch(() => { throw new Error('Ocurio un error en la petición.'); });
+      .toPromise().catch(() => { throw new Error('Ocurio un error en la petición.'); });
   }
 
   getById(entity: any, ruta: string) {

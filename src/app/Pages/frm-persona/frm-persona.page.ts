@@ -60,9 +60,10 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
     this.form = this.validForm();
     this.storage.get('persona').then((val) => {
       if (!isNullOrUndefined(val)) {
+        // Agregar
         this.baseEntity = val;
       }
-      this.extende.initializeComponent(this, val);
+      this.extende.initializeComponent<SegUsuario>(this, val);
       console.log('persona', val);
     }).catch(e => this.comun.ctrGeneric.mostrarError(e));
   }
@@ -75,8 +76,9 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
   //#region Metodos Genericos
   aceptar() {
     console.log(this.baseEntity);
+    this.comun.ctrGeneric.mostrarCargando();
 
-    if (this.baseEntity.id === EnumNumericValue.Cero) {
+    if (isNullOrUndefined(this.baseEntity.id)) {
 
       this.ctrlWebServiceService.create(this.baseEntity, 'api/Persona').then(res => {
         let respuesta = res.json();
