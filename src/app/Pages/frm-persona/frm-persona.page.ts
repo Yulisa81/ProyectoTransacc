@@ -85,6 +85,7 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
           this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
           this.comun.ctrGeneric.cerrarCargado();
+          this.router.navigate([EnumSegModulo.PersonaPrincipal]);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
           this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
@@ -99,6 +100,7 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
           this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_EDITAR);
           this.comun.ctrGeneric.cerrarCargado();
+          this.router.navigate([EnumSegModulo.PersonaPrincipal]);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
           this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
