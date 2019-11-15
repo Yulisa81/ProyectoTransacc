@@ -46,9 +46,9 @@
               [extra]="'Solo letras'"></app-show-error>
 
             <ion-item>
-              <ion-label position="floating">FECHA Nacimiento:</ion-label>
-              <ion-input formControlName="txtFechaNacimiento" [(ngModel)]='baseEntity.dteFechaNacimiento' type="text">
-              </ion-input>
+              <ion-label position="floating">Fecha Nacimiento:</ion-label>
+              <ion-datetime formControlName="txtFechaNacimiento" [(ngModel)]='baseEntity.dteFechaNacimiento' type="text">
+              </ion-datetime>
             </ion-item>
             <app-show-error [control]="form.get('txtFechaNacimiento')" [field]="'Fecha Nacimiento'" [lenght]='50'
               [extra]="'Solo letras'"></app-show-error>
