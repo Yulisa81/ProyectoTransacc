@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: 'frm-persona', loadChildren: './Pages/frm-persona/frm-persona.module#FrmPersonaPageModule' },
   { path: 'frm-transacciones', loadChildren: './Pages/transacciones/frm-transacciones/frm-transacciones.module#FrmTransaccionesPageModule' },
   { path: 'frm-about', loadChildren: './Pages/frm-about/frm-about.module#FrmAboutPageModule' },
-  { path: 'frm-persona-principal', loadChildren: './Pages/frm-persona-principal/frm-persona-principal.module#FrmPersonaPrincipalPageModule' }
+  { path: 'frm-persona-principal', loadChildren: './Pages/frm-persona-principal/frm-persona-principal.module#FrmPersonaPrincipalPageModule' },  { path: 'frm-cuentas-principal', loadChildren: './Pages/frm-cuentas-principal/frm-cuentas-principal.module#FrmCuentasPrincipalPageModule' }
+
 
 ];
 
