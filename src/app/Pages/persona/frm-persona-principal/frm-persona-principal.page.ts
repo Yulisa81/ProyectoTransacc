@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CtrlWebServiceService } from '../../../Services/ctrl-web-service.service';
 import { Comun } from '../../../../Contol/Comun';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, AlertController } from '@ionic/angular';
 import { SegUsuario } from '../../../Shared/Entity/SegUsuario';
 import { IFormMainModule } from 'src/app/Interfaces/IFormMainModule';
 import { EnumSegModulo } from '../../../Shared/Enum/SegModulo';
@@ -23,7 +23,8 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
   public items: SegUsuario[] = [];
 
   constructor(private router: Router, private ctrlWebServiceService: CtrlWebServiceService,
-    public actionSheetCtrl: ActionSheetController, private storage: Storage, private comun: Comun) {
+    public actionSheetCtrl: ActionSheetController, private storage: Storage, private comun: Comun,
+    private alertController: AlertController) {
   }
 
   ngOnInit() {
@@ -44,7 +45,6 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
   }
   //#endregion
 
-
   //#region Metodos de IFormMainModule
 
   async action(entity) {
@@ -56,10 +56,13 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
 
   async delete(entity) {
     // obtener la accion del nombre del boton
-    console.log(entity)
-    this.ctrlWebServiceService.delete(entity, 'api/Persona').then(() => {
-      this.showRows();
-  });
+    console.log(entity);
+    const res = await this.confirmarEliminar();
+    if (res) {
+      this.ctrlWebServiceService.delete(entity, 'api/Persona').then(() => {
+        this.showRows();
+      });
+    }
   }
 
   /**
@@ -102,7 +105,7 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
         this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
       }
     });
-    
+
   }
   //#endregion
 
@@ -113,7 +116,7 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
   //#endregion
 
   //#region Metodos de acciones
-  
+
   private editar() {
     this.storage.set('persona', this.baseEntity).then(() => { this.router.navigate([EnumSegModulo.Persona]); }
     );
@@ -124,6 +127,30 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
     );
   }
 
-  //#endregion
+  async confirmarEliminar() {
+    return new Promise(async (resolve) => {
+      const confirm = await this.alertController.create({
+        header: 'Transact App',
+        message: '¿Realmente deseas eliminar registro?',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              return resolve(false);
+            },
+          },
+          {
+            text: 'OK',
+            handler: () => {
+              return resolve(true);
+            },
+          },
+        ],
+      });
+      confirm.present();
+    });
+  }
+      //#endregion
 
-}
+    }
