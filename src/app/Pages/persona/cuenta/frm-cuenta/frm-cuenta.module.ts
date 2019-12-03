@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FrmPersonaPage } from './frm-persona.page';
-import { ComponentsModule } from '../../components/components.module';
+import { FrmCuentaPage } from './frm-cuenta.page';
+import { ComponentsModule } from '../../../../components/components.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: FrmPersonaPage
+    component: FrmCuentaPage
   }
 ];
 
@@ -19,11 +19,11 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     ComponentsModule,
+    ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [FrmPersonaPage]
+  declarations: [FrmCuentaPage]
 })
-export class FrmPersonaPageModule {}
+export class FrmCuentaPageModule {}

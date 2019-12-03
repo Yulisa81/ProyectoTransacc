@@ -2,19 +2,19 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonItemSliding, AlertController, ActionSheetController } from '@ionic/angular';
 import { Persona } from 'src/app/Shared/Entity/Persona';
 import { CtrlWebServiceService } from 'src/app/Services/ctrl-web-service.service';
-import { IFormMainModule } from '../../Interfaces/IFormMainModule';
-import { Comun } from '../../../Contol/Comun';
-import { SegUsuario } from '../../Shared/Entity/SegUsuario';
+import { IFormMainModule } from '../../../Interfaces/IFormMainModule';
+import { Comun } from '../../../../Contol/Comun';
+import { SegUsuario } from '../../../Shared/Entity/SegUsuario';
 import { Router } from '@angular/router';
-import { EnumSegModulo } from '../../Shared/Enum/SegModulo';
+import { EnumSegModulo } from '../../../Shared/Enum/SegModulo';
 import { Storage } from '@ionic/storage';
 import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { isNullOrUndefined, isNull } from 'util';
-import { IFormManager } from '../../Interfaces/IFormManager';
-import { FormManagerExtender } from '../../Shared/Extender/FormManagerExtender';
-import { EnumRequests } from '../../Shared/Enum/EnumRequest';
-import { EnumNumericValue } from '../../Shared/Enum/EnumNumericValue';
-import { Resource } from '../../../Contol/Resources/Resources';
+import { IFormManager } from '../../../Interfaces/IFormManager';
+import { FormManagerExtender } from '../../../Shared/Extender/FormManagerExtender';
+import { EnumRequests } from '../../../Shared/Enum/EnumRequest';
+import { EnumNumericValue } from '../../../Shared/Enum/EnumNumericValue';
+import { Resource } from '../../../../Contol/Resources/Resources';
 
 @Component({
   selector: 'app-frm-persona',

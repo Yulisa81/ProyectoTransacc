@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CtrlWebServiceService } from '../../Services/ctrl-web-service.service';
-import { Comun } from '../../../Contol/Comun';
+import { CtrlWebServiceService } from '../../../Services/ctrl-web-service.service';
+import { Comun } from '../../../../Contol/Comun';
 import { ActionSheetController } from '@ionic/angular';
-import { SegUsuario } from '../../Shared/Entity/SegUsuario';
+import { SegUsuario } from '../../../Shared/Entity/SegUsuario';
 import { IFormMainModule } from 'src/app/Interfaces/IFormMainModule';
-import { EnumSegModulo } from '../../Shared/Enum/SegModulo';
+import { EnumSegModulo } from '../../../Shared/Enum/SegModulo';
 import { Storage } from '@ionic/storage';
-import { async } from '@angular/core/testing';
-import { EnumNumericValue } from '../../Shared/Enum/EnumNumericValue';
-import { EnumRequests } from '../../Shared/Enum/EnumRequest';
-import { Resource } from '../../../Contol/Resources/Resources';
+import { EnumNumericValue } from '../../../Shared/Enum/EnumNumericValue';
+import { EnumRequests } from '../../../Shared/Enum/EnumRequest';
+import { Resource } from '../../../../Contol/Resources/Resources';
 
 @Component({
   selector: 'app-frm-persona-principal',
@@ -52,7 +51,7 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
     // obtener la accion del nombre del boton
     console.log(entity)
     this.baseEntity = entity;
-    this.editItem();
+    this.editar();
   }
 
   async delete(entity) {
@@ -63,6 +62,12 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
   });
   }
 
+  /**
+   * Metodo para mostrar las acciones que tiene permitido
+   * el usuario hacia otros mudulos relacionados
+   * @param module
+   * @param segUsuario
+   */
   showActionPane(module: string, segUsuario: any) {
 
     this.botones.push({
@@ -74,25 +79,15 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
 
     // if (this.permisos.BitConsultar == 1) {
     this.botones.push({
-      text: 'Detalles', icon: 'eye',
-      handler: () => { this.editItem(); }
+      text: 'Cuentas', icon: 'card',
+      handler: () => { this.cuentas(); }
     });
-    // } if (this.permisos.BitEditar == 1) {
-    this.botones.push({
-      text: 'Editar', icon: 'share',
-      handler: () => { this.editItem(); }
-    });
-    // } if (this.permisos.BitEliminar == 1) {
-    this.botones.push({
-      text: 'Eliminar', role: 'destructive', icon: 'arrow-dropright-circle',
-      handler: () => { this.editItem(); }
-    });
-    // } if (this.permisos.BitImprimir == 1) {
-    this.botones.push({
-      text: 'imprimir', icon: 'heart',
-      handler: () => { this.editItem(); }
-    });
-    // }
+    // // } if (this.permisos.BitEditar == 1) {
+    // this.botones.push({
+    //   text: 'Editar', icon: 'share',
+    //   handler: () => { this.editItem(); }
+    // });
+
   }
 
   showRows() {
@@ -107,9 +102,7 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
         this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
       }
     });
-    // for (let i = 0; i < 2; i++) {
-    //   this.items.push(this.comun.globalVariable.usuario);
-    // }
+    
   }
   //#endregion
 
@@ -119,9 +112,18 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
   }
   //#endregion
 
-  private editItem() {
+  //#region Metodos de acciones
+  
+  private editar() {
     this.storage.set('persona', this.baseEntity).then(() => { this.router.navigate([EnumSegModulo.Persona]); }
     );
   }
+
+  private cuentas() {
+    this.storage.set('persona', this.baseEntity).then(() => { this.router.navigate([EnumSegModulo.CuentaPrincipal]); }
+    );
+  }
+
+  //#endregion
 
 }

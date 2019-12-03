@@ -1,0 +1,58 @@
+<app-header [titulo]="'Cuenta'"></app-header>
+
+<ion-content>
+  <form [formGroup]="form" (ngSubmit)="aceptar()">
+
+    <ion-grid>
+      <ion-row justify-content-center>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+
+          <ion-item text-center lines="none">
+            <ion-label class="accion">[{{actionType}}]</ion-label>
+          </ion-item>
+
+          <div padding>
+            <ion-label class="datos">[Datos Cuenta]</ion-label>
+            <ion-item>
+              <ion-label position="floating">Numero Cuenta:</ion-label>
+              <ion-input formControlName="txtNumeroCuenta" [(ngModel)]='baseEntity.numeroCuenta' type="text"></ion-input>
+            </ion-item>
+            <app-show-error [control]="form.get('txtNumeroCuenta')" [field]="'numero de cuenta'" [lenght]='10' [extra]="'Solo numeros'">
+            </app-show-error>
+
+            <ion-item>
+              <ion-label position="floating">Saldo:</ion-label>
+              <ion-input formControlName="txtSaldo" [(ngModel)]='baseEntity.curSaldo' type="text"></ion-input>
+            </ion-item>
+            <app-show-error [control]="form.get('txtSaldo')" [field]="'saldo'" [lenght]='5'
+              [extra]="'Solo numeros'"></app-show-error>
+
+            <ion-item>
+              <ion-label position="floating">Pin:</ion-label>
+              <ion-input formControlName="txtPin" [(ngModel)]='baseEntity.pin' type="text">
+              </ion-input>
+            </ion-item>
+            <app-show-error [control]="form.get('txtPin')" [field]="'pin'" [lenght]='10'
+              [extra]="'Solo numeros'"></app-show-error>
+
+            <ion-item>
+              <ion-label>Estado</ion-label>                
+              <ion-select okText="Aceptar" cancelText="Cancelar" formControlName="cmbEstado"  >
+                  <ion-select-option  *ngFor="let item of listaEstados"  [(ngModel)]='baseEntity.idComCatEstadoCuenta' value="{{item.id}}">
+                    {{item.strValor}}
+                  </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          </div>
+
+          <div padding>
+            <ion-button size="medium" type="submit" expand="block" [disabled]="!form.valid"> Aceptar</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </form>
+
+</ion-content>
