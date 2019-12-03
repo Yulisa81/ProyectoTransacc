@@ -33,14 +33,17 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
   }
 
   //#region Mostrar SubMenus
-  public async showSubMenus() {
+  public async showSubMenus(entity) {
+    console.log(entity)
     if (this.botones.length > EnumNumericValue.Uno) {
-      const actionSheet = await this.actionSheetCtrl.create({
-        header: 'Acciones Extra',
-        cssClass: 'action-sheets-basic-page',
-        buttons: this.botones
+      this.storage.set('persona', entity).then(async () => {
+        const actionSheet = await this.actionSheetCtrl.create({
+          header: 'Acciones Extra',
+          cssClass: 'action-sheets-basic-page',
+          buttons: this.botones
+        });
+        actionSheet.present();
       });
-      actionSheet.present();
     }
   }
   //#endregion
@@ -123,8 +126,7 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
   }
 
   private cuentas() {
-    this.storage.set('persona', this.baseEntity).then(() => { this.router.navigate([EnumSegModulo.CuentaPrincipal]); }
-    );
+    this.router.navigate([EnumSegModulo.CuentaPrincipal]);
   }
 
   async confirmarEliminar() {
@@ -151,6 +153,6 @@ export class FrmPersonaPrincipalPage implements OnInit, IFormMainModule<any> {
       confirm.present();
     });
   }
-      //#endregion
+  //#endregion
 
-    }
+}

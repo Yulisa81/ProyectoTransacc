@@ -38,7 +38,8 @@
             <ion-item>
               <ion-label>Estado</ion-label>                
               <ion-select okText="Aceptar" cancelText="Cancelar" formControlName="cmbEstado"  >
-                  <ion-select-option  *ngFor="let item of listaEstados"  [(ngModel)]='baseEntity.idComCatEstadoCuenta' value="{{item.id}}">
+                  <ion-select-option  *ngFor="let item of listaEstados"  
+                     value="{{item.id}}">
                     {{item.strValor}}
                   </ion-select-option>
               </ion-select>

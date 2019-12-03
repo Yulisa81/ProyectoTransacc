@@ -4,6 +4,5 @@ export class Cuenta {
     numeroCuenta: string;
     curSaldo: number;
     pin: string;
-    idComCatEstadoCuenta : number;
-
+    idComCatEstadoCuenta: number;
 }

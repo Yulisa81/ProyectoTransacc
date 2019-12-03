@@ -1,6 +1,5 @@
 export class ComCatEstadoCuenta {
     id: number;
-    valor: string;
+    strValor: string;
     descripcion: string;
-   
 }

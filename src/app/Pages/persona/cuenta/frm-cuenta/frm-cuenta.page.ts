@@ -13,6 +13,7 @@ import { Resource } from '../../../../../Contol/Resources/Resources';
 import { EnumSegModulo } from '../../../../Shared/Enum/SegModulo';
 import { Storage } from '@ionic/storage';
 import { ComCatEstadoCuenta } from '../../../../Shared/Entity/ComCatEstadoCuenta';
+import { SegUsuario } from '../../../../Shared/Entity/SegUsuario';
 
 @Component({
   selector: 'app-frm-cuenta',
@@ -26,6 +27,7 @@ export class FrmCuentaPage implements OnInit, OnDestroy, IFormManager<Cuenta> {
   public actionType: string;
   public form: FormGroup;
   public baseEntity = new Cuenta();
+  public persona = new SegUsuario();
   public listaEstados: ComCatEstadoCuenta[] = [];
   //#endregion
 
@@ -73,6 +75,14 @@ export class FrmCuentaPage implements OnInit, OnDestroy, IFormManager<Cuenta> {
         this.baseEntity = val;
       }
       this.extende.initializeComponent<Cuenta>(this, val);
+      console.log('cuenta', val);
+    }).catch(e => this.comun.ctrGeneric.mostrarError(e));
+
+    this.storage.get('persona').then((val) => {
+      if (!isNullOrUndefined(val)) {
+        // Agregar
+        this.persona = val;
+      }
       console.log('persona', val);
     }).catch(e => this.comun.ctrGeneric.mostrarError(e));
   }
@@ -85,7 +95,11 @@ export class FrmCuentaPage implements OnInit, OnDestroy, IFormManager<Cuenta> {
   //#region Metodos Genericos
   aceptar() {
     console.log(this.baseEntity);
-    this.comun.ctrGeneric.mostrarCargando();
+    //this.comun.ctrGeneric.mostrarCargando();
+    console.log('cmbEstado', this.form.get('cmbEstado').value);
+    
+    this.baseEntity.idComCatEstadoCuenta=Number( this.form.get('cmbEstado').value);
+    this.baseEntity.idComPersona=this.persona.id;
 
     if (isNullOrUndefined(this.baseEntity.id)) {
 

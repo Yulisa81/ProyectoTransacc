@@ -18,7 +18,7 @@
 
   <ion-list>
     <ion-item-sliding #slidingItem *ngFor="let item of items">
-      <ion-item (click)="showSubMenus()">
+      <ion-item (click)="showSubMenus(item)">
        <!-- <ion-icon slot="start"></ion-icon>-->
         <ion-avatar slot="start">
           <ion-img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"></ion-img>
