@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reestablecer',
@@ -7,8 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReestablecerPage implements OnInit {
 
-  constructor() { }
+  objetoReset: {strCorreo: 'a', strPassword: 'a', strPasswordCfrm: 'a'};
+  formResetAccount: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.formResetAccount = this.fb.group({
+      txtCorreoAsociado: ['', [Validators.required, Validators.maxLength(50), Validators.email]],
+      txtPassword: ['', [Validators.required, Validators.maxLength(50)]],
+      txtPasswordCfrm: ['', [Validators.required, Validators.maxLength(50)]],
+    });
+   }
 
   ngOnInit() {
+  }
+
+  resetAccount(postObj: any) {
+    this.objetoReset.strCorreo = postObj.txtCorreoAsociado;
+    this.objetoReset.strPassword = postObj.strPassword;
+    this.objetoReset.strPasswordCfrm = postObj.strPasswordCfrm;
+    console.log(this.objetoReset);
+    // Call to web service
   }
 }
