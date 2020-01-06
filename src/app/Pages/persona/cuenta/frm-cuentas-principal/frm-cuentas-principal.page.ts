@@ -9,6 +9,8 @@ import { EnumRequests } from '../../../../Shared/Enum/EnumRequest';
 import { Resource } from '../../../../../Contol/Resources/Resources';
 import { EnumSegModulo } from '../../../../Shared/Enum/SegModulo';
 import { Storage } from '@ionic/storage';
+import { ActionSheetController, AlertController } from '@ionic/angular';
+import { Persona } from 'src/app/Shared/Entity/Persona';
 
 @Component({
   selector: 'app-frm-cuentas-principal',
@@ -22,17 +24,31 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
   public items: Cuenta[] = [];
 
   constructor(private router: Router, private ctrlWebServiceService: CtrlWebServiceService,
-    private storage: Storage, private comun: Comun) {
+    private storage: Storage, private comun: Comun,public actionSheetCtrl: ActionSheetController, 
+    private alertController: AlertController) {
   }
 
   ngOnInit() {
     this.showActionPane('', '');
+    this.storage.get('persona').then((entity) => {
+      this.baseEntity=entity;
     this.showRows();
+    });
   }
 
   //#region Mostrar SubMenus
-  public async showSubMenus() {
-
+  public async showSubMenus(entity) {
+    console.log(entity)
+    if (this.botones.length > EnumNumericValue.Uno) {
+      this.storage.set('cuenta', entity).then(async () => {
+        const actionSheet = await this.actionSheetCtrl.create({
+          header: 'Acciones Extra',
+          cssClass: 'action-sheets-basic-page',
+          buttons: this.botones
+        });
+        actionSheet.present();
+      });
+    }
   }
   //#endregion
 
@@ -49,9 +65,15 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
   async delete(entity) {
     // obtener la accion del nombre del boton
     console.log(entity)
-    this.ctrlWebServiceService.delete(entity, 'api/Cuenta').then(() => {
+    /*/this.ctrlWebServiceService.delete(entity, 'api/Cuenta').then(() => {
       this.showRows();
-    });
+    });*/
+    const res = await this.confirmarEliminar();
+    if (res) {
+      this.ctrlWebServiceService.delete(entity, 'api/Cuenta').then(() => {
+        this.showRows();
+      });
+    }
   }
 
   /**
@@ -62,10 +84,14 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
    */
   showActionPane(module: string, segUsuario: any) {
 
+    this.botones.push({
+      text: 'Cancelar', role: 'cancel', icon: 'close'
+    });
   }
 
-  showRows() {
-    return this.ctrlWebServiceService.getAll('api/Cuenta').then(res => {
+  showRows() {  
+   
+    return this.ctrlWebServiceService.getById(this.baseEntity,'api/Cuenta').then(res => {
       let respuesta = res.json();
       if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
         this.items = respuesta[EnumRequests.EntityList];
@@ -76,14 +102,16 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
         this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
       }
     });
-
   }
   //#endregion
 
   //#region Refresh datos
-  doRefresh(event) {
+  doRefresh(event) {    
+    this.storage.get('persona').then((entity) => {
+      this.baseEntity=entity;
     this.showRows().then(() => { event.target.complete(); });
-  }
+    });
+}
   //#endregion
 
   //#region Metodos de acciones
@@ -93,6 +121,31 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
     );
   }
 
+
+  async confirmarEliminar() {
+    return new Promise(async (resolve) => {
+      const confirm = await this.alertController.create({
+        header: 'Transact App',
+        message: '¿Realmente deseas eliminar registro?',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              return resolve(false);
+            },
+          },
+          {
+            text: 'OK',
+            handler: () => {
+              return resolve(true);
+            },
+          },
+        ],
+      });
+      confirm.present();
+    });
+  }
   //#endregion
 
 }
