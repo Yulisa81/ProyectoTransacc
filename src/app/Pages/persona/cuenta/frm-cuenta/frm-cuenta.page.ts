@@ -94,13 +94,11 @@ export class FrmCuentaPage implements OnInit, OnDestroy, IFormManager<Cuenta> {
 
   //#region Metodos Genericos
   aceptar() {
-    console.log(this.baseEntity);
     //this.comun.ctrGeneric.mostrarCargando();
     console.log('cmbEstado', this.form.get('cmbEstado').value);
-    
     this.baseEntity.idComCatEstadoCuenta=Number( this.form.get('cmbEstado').value);
     this.baseEntity.idComPersona=this.persona.id;
-
+    console.log(this.baseEntity);
     if (isNullOrUndefined(this.baseEntity.id)) {
 
       this.ctrlWebServiceService.create(this.baseEntity, 'api/Cuenta').then(res => {

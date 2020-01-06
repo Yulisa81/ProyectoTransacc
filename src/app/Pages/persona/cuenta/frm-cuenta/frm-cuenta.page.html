@@ -15,7 +15,7 @@
             <ion-label class="datos">[Datos Cuenta]</ion-label>
             <ion-item>
               <ion-label position="floating">Numero Cuenta:</ion-label>
-              <ion-input formControlName="txtNumeroCuenta" [(ngModel)]='baseEntity.numeroCuenta' type="text"></ion-input>
+              <ion-input formControlName="txtNumeroCuenta" [(ngModel)]='baseEntity.strNumCuenta' type="text"></ion-input>
             </ion-item>
             <app-show-error [control]="form.get('txtNumeroCuenta')" [field]="'numero de cuenta'" [lenght]='10' [extra]="'Solo numeros'">
             </app-show-error>
@@ -29,7 +29,7 @@
 
             <ion-item>
               <ion-label position="floating">Pin:</ion-label>
-              <ion-input formControlName="txtPin" [(ngModel)]='baseEntity.pin' type="text">
+              <ion-input formControlName="txtPin" [(ngModel)]='baseEntity.strPin' type="text">
               </ion-input>
             </ion-item>
             <app-show-error [control]="form.get('txtPin')" [field]="'pin'" [lenght]='10'

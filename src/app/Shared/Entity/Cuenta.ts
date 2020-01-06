@@ -1,8 +1,8 @@
 export class Cuenta {
     id: number;
     idComPersona: number;
-    numeroCuenta: string;
+    strNumCuenta: string;
     curSaldo: number;
-    pin: string;
+    strPin: string;
     idComCatEstadoCuenta: number;
 }

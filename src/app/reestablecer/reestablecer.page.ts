@@ -6,9 +6,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './reestablecer.page.html',
   styleUrls: ['./reestablecer.page.scss'],
 })
+
 export class ReestablecerPage implements OnInit {
 
-  objetoReset: {strCorreo: 'a', strPassword: 'a', strPasswordCfrm: 'a'};
+
+  objetoReset: ObjetoReset;
   formResetAccount: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -23,6 +25,7 @@ export class ReestablecerPage implements OnInit {
   }
 
   resetAccount(postObj: any) {
+    this.objetoReset = new ObjetoReset();
     this.objetoReset.strCorreo = postObj.txtCorreoAsociado;
     this.objetoReset.strPassword = postObj.strPassword;
     this.objetoReset.strPasswordCfrm = postObj.strPasswordCfrm;
@@ -30,3 +33,9 @@ export class ReestablecerPage implements OnInit {
     // Call to web service
   }
 }
+
+export class ObjetoReset {
+  strCorreo: string;
+  strPassword: string;
+  strPasswordCfrm: string;
+  }
