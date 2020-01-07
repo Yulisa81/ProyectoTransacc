@@ -33,7 +33,7 @@ export class FrmCuentaPage implements OnInit, OnDestroy, IFormManager<Cuenta> {
 
   //#region Constructor
   constructor(private router: Router, private ctrlWebServiceService: CtrlWebServiceService, private formBuilder: FormBuilder,
-    private storage: Storage, private comun: Comun, private extende: FormManagerExtender) {
+              private storage: Storage, private comun: Comun, private extende: FormManagerExtender) {
 
   }
   //#endregion
@@ -45,10 +45,10 @@ export class FrmCuentaPage implements OnInit, OnDestroy, IFormManager<Cuenta> {
   }
   setEntity() {
     return this.ctrlWebServiceService.getAll('api/Estado').then(res => {
-      let respuesta = res.json();
+      const respuesta = res.json();
       if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
         this.listaEstados = respuesta[EnumRequests.EntityList];
-        console.log(this.listaEstados)
+        console.log(this.listaEstados);
         this.comun.ctrGeneric.cerrarCargado();
       } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
         this.listaEstados = [];
@@ -94,15 +94,15 @@ export class FrmCuentaPage implements OnInit, OnDestroy, IFormManager<Cuenta> {
 
   //#region Metodos Genericos
   aceptar() {
-    //this.comun.ctrGeneric.mostrarCargando();
+    // this.comun.ctrGeneric.mostrarCargando();
     console.log('cmbEstado', this.form.get('cmbEstado').value);
-    this.baseEntity.idComCatEstadoCuenta=Number( this.form.get('cmbEstado').value);
-    this.baseEntity.idComPersona=this.persona.id;
-    console.log(this.baseEntity);
+    this.baseEntity.idComCatEstadoCuenta = Number(this.form.get('cmbEstado').value);
+    this.baseEntity.idComPersona = this.persona.id;
+    this.baseEntity.curSaldo = Number(this.baseEntity.curSaldo);
     if (isNullOrUndefined(this.baseEntity.id)) {
 
       this.ctrlWebServiceService.create(this.baseEntity, 'api/Cuenta').then(res => {
-        let respuesta = res.json();
+        const respuesta = res.json();
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
           this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
           this.comun.ctrGeneric.cerrarCargado();
@@ -117,7 +117,7 @@ export class FrmCuentaPage implements OnInit, OnDestroy, IFormManager<Cuenta> {
     } else {
 
       this.ctrlWebServiceService.update(this.baseEntity, 'api/Cuenta').then(res => {
-        let respuesta = res.json();
+        const respuesta = res.json();
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
           this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_EDITAR);
           this.comun.ctrGeneric.cerrarCargado();
@@ -133,7 +133,7 @@ export class FrmCuentaPage implements OnInit, OnDestroy, IFormManager<Cuenta> {
 
   }
   registro2(form: NgForm) {
-    console.log(form)
+    console.log(form);
   }
   //#endregion
 

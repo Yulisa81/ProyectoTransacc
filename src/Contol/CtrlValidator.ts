@@ -87,5 +87,4 @@ export class CtrlValidator {
     public Email() {
         return Validators.compose([Validators.email, this.MaxLength()]);
     }
-
 }
