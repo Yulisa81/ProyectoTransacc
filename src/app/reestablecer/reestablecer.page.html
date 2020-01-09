@@ -41,7 +41,6 @@
         <ion-label *ngIf="formResetAccount.get('txtPasswordCfrm').hasError('maxlength')" color="danger">Máximo 50 caracteres</ion-label>
       </ion-item>
       <ion-button expand="block" type="submit" [disabled]="formResetAccount.invalid">Restaurar</ion-button>
-      <ion-label color="warning"><ion-icon slot="start" name="information-circle"></ion-icon>Si el correo coincide se autovalidará el ajuste para el proximo acceso</ion-label>
   </ion-card>
   </form>
 </ion-content>
