@@ -78,5 +78,7 @@ export class FrmLoginPage extends CtrlInternetAccessService implements OnInit {
   }
   //#endregion
 
-
+  private reestablecerUsuario() {
+    this.router.navigate([EnumSegModulo.Reestablecer]);
+  }
 }
