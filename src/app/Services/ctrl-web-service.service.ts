@@ -37,8 +37,9 @@ export class CtrlWebServiceService {
   }
 
   getById(entity: any, ruta: string) {
+    console.log(entity,'hgfhf');
     return this.http
-      .get(this.base_path + '/' + 2).toPromise();
+      .get(this.base_path +ruta+ '/' + entity.id).toPromise();
   }
   getAll(ruta: string): any {
     return this.http.get(this.base_path + ruta, this.options)

@@ -106,7 +106,7 @@ export class FrmCuentaPage implements OnInit, OnDestroy, IFormManager<Cuenta> {
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
           this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
           this.comun.ctrGeneric.cerrarCargado();
-          this.router.navigate([EnumSegModulo.PersonaPrincipal]);
+          this.router.navigate([EnumSegModulo.CuentaPrincipal]);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
           this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
@@ -121,7 +121,7 @@ export class FrmCuentaPage implements OnInit, OnDestroy, IFormManager<Cuenta> {
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
           this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_EDITAR);
           this.comun.ctrGeneric.cerrarCargado();
-          this.router.navigate([EnumSegModulo.PersonaPrincipal]);
+          this.router.navigate([EnumSegModulo.CuentaPrincipal]);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
           this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
