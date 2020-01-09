@@ -18,19 +18,20 @@ export class ReestablecerPage implements OnInit {
       txtCorreoAsociado: ['', [Validators.required, Validators.maxLength(50), Validators.email]],
       txtPassword: ['', [Validators.required, Validators.maxLength(50)]],
       txtPasswordCfrm: ['', [Validators.required, Validators.maxLength(50)]],
+    }, {
+      validator: checkMatchValidator('txtPassword', 'txtPasswordCfrm')
     });
-   }
+  }
 
   ngOnInit() {
   }
 
   resetAccount(postObj: any) {
-    this.objetoReset = new ObjetoReset();
     this.objetoReset.strCorreo = postObj.txtCorreoAsociado;
     this.objetoReset.strPassword = postObj.strPassword;
     this.objetoReset.strPasswordCfrm = postObj.strPasswordCfrm;
     console.log(this.objetoReset);
-    // Call to web service
+    // TODO Call to web service
   }
 }
 
@@ -38,4 +39,15 @@ export class ObjetoReset {
   strCorreo: string;
   strPassword: string;
   strPasswordCfrm: string;
-  }
+}
+
+export function checkMatchValidator(f1: string, f2: string) {
+  return (frm) => {
+    const f1Val = frm.get(f1).value;
+    const f2Val = frm.get(f2).value;
+    if (f1Val !== '' && f1Val !== f2Val) {
+      return { notMatch: 'Las contraseñas no coinciden' };
+    }
+    return null;
+  };
+}

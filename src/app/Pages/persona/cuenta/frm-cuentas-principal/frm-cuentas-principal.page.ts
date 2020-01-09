@@ -9,6 +9,7 @@ import { EnumRequests } from '../../../../Shared/Enum/EnumRequest';
 import { Resource } from '../../../../../Contol/Resources/Resources';
 import { EnumSegModulo } from '../../../../Shared/Enum/SegModulo';
 import { Storage } from '@ionic/storage';
+import { SegUsuario } from 'src/app/Shared/Entity/SegUsuario';
 
 @Component({
   selector: 'app-frm-cuentas-principal',
@@ -65,7 +66,7 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
   }
 
   showRows() {
-    return this.ctrlWebServiceService.getAll('api/Cuenta').then(res => {
+    return this.ctrlWebServiceService.getAll('api/Cuenta/').then(res => {
       let respuesta = res.json();
       if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
         this.items = respuesta[EnumRequests.EntityList];

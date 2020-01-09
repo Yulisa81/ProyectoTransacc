@@ -35,6 +35,7 @@
       </ion-item-group>
       <ion-item *ngIf="formResetAccount.get('txtPasswordCfrm').errors && formResetAccount.get('txtPasswordCfrm').dirty">
         <ion-label *ngIf="formResetAccount.get('txtPasswordCfrm').hasError('required')" color="danger">El campo es requerido</ion-label>
+        <ion-label *ngIf="formResetAccount.get('txtPasswordCfrm').hasError('checkMatchValidator')" color="danger">Las contraseñas no coinciden</ion-label>
         <ion-label *ngIf="formResetAccount.get('txtPasswordCfrm').hasError('maxlength')" color="danger">Máximo 50 caracteres</ion-label>
       </ion-item>
       <ion-button expand="block" type="submit" [disabled]="formResetAccount.invalid">Restaurar</ion-button>
