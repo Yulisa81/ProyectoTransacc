@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-reestablecer',
@@ -13,7 +14,7 @@ export class ReestablecerPage implements OnInit {
   objetoReset: ObjetoReset;
   formResetAccount: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, public menuCtrl: MenuController) {
     this.formResetAccount = this.fb.group({
       txtCorreoAsociado: ['', [Validators.required, Validators.maxLength(50), Validators.email]],
       txtPassword: ['', [Validators.required, Validators.maxLength(50)]],
@@ -24,6 +25,7 @@ export class ReestablecerPage implements OnInit {
   }
 
   ngOnInit() {
+    this.menuCtrl.enable(false);
   }
 
   resetAccount(postObj: any) {
