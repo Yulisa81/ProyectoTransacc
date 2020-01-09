@@ -24,14 +24,14 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
   public items: Cuenta[] = [];
 
   constructor(private router: Router, private ctrlWebServiceService: CtrlWebServiceService,
-    private storage: Storage, private comun: Comun,public actionSheetCtrl: ActionSheetController, 
-    private alertController: AlertController) {
+              private storage: Storage, private comun: Comun, public actionSheetCtrl: ActionSheetController, 
+              private alertController: AlertController) {
   }
 
   ngOnInit() {
     this.showActionPane('', '');
     this.storage.get('persona').then((entity) => {
-      this.baseEntity=entity;
+    this.baseEntity = entity;
     this.showRows();
     });
   }
@@ -89,10 +89,10 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
     });
   }
 
-  showRows() {  
-   
+  showRows() {
+
     return this.ctrlWebServiceService.getById(this.baseEntity,'api/Cuenta').then(res => {
-      let respuesta = res.json();
+      const respuesta = res.json();
       if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
         this.items = respuesta[EnumRequests.EntityList];
         this.comun.ctrGeneric.cerrarCargado();
@@ -106,9 +106,9 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
   //#endregion
 
   //#region Refresh datos
-  doRefresh(event) {    
+  doRefresh(event) {
     this.storage.get('persona').then((entity) => {
-      this.baseEntity=entity;
+    this.baseEntity = entity;
     this.showRows().then(() => { event.target.complete(); });
     });
 }
