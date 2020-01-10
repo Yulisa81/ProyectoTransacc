@@ -20,6 +20,7 @@ import { Persona } from 'src/app/Shared/Entity/Persona';
 export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> {
 
   private botones: any = [];
+  private basePersona: Persona;
   private baseEntity: Cuenta;
   public items: Cuenta[] = [];
 
@@ -31,7 +32,7 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
   ngOnInit() {
     this.showActionPane('', '');
     this.storage.get('persona').then((entity) => {
-    this.baseEntity = entity;
+    this.basePersona = entity;
     this.showRows();
     });
   }
@@ -91,14 +92,18 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
 
   showRows() {
 
-    return this.ctrlWebServiceService.getById(this.baseEntity,'api/Cuenta').then(res => {
+    return this.ctrlWebServiceService.getById(this.basePersona,'api/Cuenta').then(res => {
       const respuesta = res.json();
       if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
         this.items = respuesta[EnumRequests.EntityList];
         this.comun.ctrGeneric.cerrarCargado();
       } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
         this.items = null;
-        this.comun.ctrGeneric.cerrarCargado();
+        this.comun.ctrGeneric.cerrarCargado();        
+        this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
+      } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
+        this.items = null;
+        this.comun.ctrGeneric.cerrarCargado();        
         this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
       }
     });
@@ -108,7 +113,7 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
   //#region Refresh datos
   doRefresh(event) {
     this.storage.get('persona').then((entity) => {
-    this.baseEntity = entity;
+    this.basePersona = entity;
     this.showRows().then(() => { event.target.complete(); });
     });
 }
