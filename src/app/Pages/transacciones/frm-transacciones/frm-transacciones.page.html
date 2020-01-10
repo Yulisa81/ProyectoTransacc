@@ -10,11 +10,38 @@
 </ion-header>
 
 <ion-content>
-<ion-item>
-  <ion-card>
-    
-  </ion-card>
-</ion-item>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshingSpinner="circles" refreshingText="Actualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item-sliding #slidingItem *ngFor="let item of items">
+      <ion-item (click)="showSubMenus(item)">
+       <!-- <ion-icon slot="start"></ion-icon>-->
+        <ion-avatar slot="start">
+          <ion-img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"></ion-img>
+        </ion-avatar>
+        Transacción realizada: {{ item.dteFecha }}, Monto: {{item.curMonto}}
+        <div class="item-note" slot="end">
+          <!-- {{item.note}} -->
+        </div>
+      </ion-item>
+
+      <ion-item-options>
+        <ion-item-option color="default">
+          <ion-icon name="eye"></ion-icon>Ver
+        </ion-item-option>
+        <ion-item-option color="primary" (click)="action(item)">
+          <ion-icon name="create"></ion-icon>Editar
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="delete(item)">
+          <ion-icon name="trash"></ion-icon>Delete
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
