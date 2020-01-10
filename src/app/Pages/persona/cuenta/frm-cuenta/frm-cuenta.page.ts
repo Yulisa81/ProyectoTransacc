@@ -117,6 +117,7 @@ export class FrmCuentaPage implements OnInit, OnDestroy, IFormManager<Cuenta> {
     } else {
 
       this.ctrlWebServiceService.update(this.baseEntity, 'api/Cuenta').then(res => {
+        console.log(this.baseEntity);
         const respuesta = res.json();
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
           this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_EDITAR);

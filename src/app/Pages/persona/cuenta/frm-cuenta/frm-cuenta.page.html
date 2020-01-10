@@ -32,12 +32,12 @@
               <ion-input formControlName="txtPin" [(ngModel)]='baseEntity.strPin' type="text">
               </ion-input>
             </ion-item>
-            <app-show-error [control]="form.get('txtPin')" [field]="'pin'" [lenght]='10'
+            <app-show-error [control]="form.get('txtPin')" [field]="'pin'" [lenght]='4'
               [extra]="'Solo numeros'"></app-show-error>
 
             <ion-item>
               <ion-label>Estado</ion-label>                
-              <ion-select okText="Aceptar" cancelText="Cancelar" formControlName="cmbEstado"  >
+              <ion-select okText="Aceptar" cancelText="Cancelar" formControlName="cmbEstado">
                   <ion-select-option  *ngFor="let item of listaEstados"  
                      value="{{item.id}}">
                     {{item.strValor}}
