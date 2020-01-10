@@ -28,9 +28,9 @@ export class FrmLoginPage extends CtrlInternetAccessService implements OnInit {
 
   //#region Constructor
   constructor(private router: Router, private formBuilder: FormBuilder,
-    public menuCtrl: MenuController, private ctrlWebServiceService: CtrlWebServiceService,
-    private comun: Comun) {
-    super()
+              public menuCtrl: MenuController, private ctrlWebServiceService: CtrlWebServiceService,
+              private comun: Comun) {
+    super();
     this.myForm = this.validForm();
   }
   //#endregion
@@ -44,13 +44,13 @@ export class FrmLoginPage extends CtrlInternetAccessService implements OnInit {
 
     await this.comun.ctrGeneric.mostrarCargando();
     if (this.checkInternetConnection()) {
-      console.log("TIENE CONEXION");
+      console.log('TIENE CONEXION');
     } else {
-      console.log("NO TIENE CONEXION");
+      console.log('NO TIENE CONEXION');
     }
 
     this.ctrlWebServiceService.create(this.usuario, 'api/Login').then(res => {
-      let respuesta = res.json();
+      const respuesta = res.json();
       if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
         this.comun.globalVariable.usuario = respuesta[EnumRequests.Entity];
         this.comun.ctrGeneric.cerrarCargado();
@@ -78,5 +78,7 @@ export class FrmLoginPage extends CtrlInternetAccessService implements OnInit {
   }
   //#endregion
 
-
+  private reestablecerUsuario() {
+    this.router.navigate([EnumSegModulo.Reestablecer]);
+  }
 }

@@ -4,5 +4,6 @@ export enum EnumSegModulo {
     Persona = 'frm-persona',
     PersonaPrincipal = 'frm-persona-principal',
     CuentaPrincipal = 'frm-cuentas-principal',
-    Cuenta = 'frm-cuenta'
+    Cuenta = 'frm-cuenta',
+    Reestablecer = 'reestablecer'
 }

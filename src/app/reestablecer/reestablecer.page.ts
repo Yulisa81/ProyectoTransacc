@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MenuController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { resolve } from 'url';
+import { Comun } from 'src/Contol/Comun';
+import { EnumSegModulo } from '../Shared/Enum/SegModulo';
 
 @Component({
   selector: 'app-reestablecer',
@@ -13,7 +18,7 @@ export class ReestablecerPage implements OnInit {
   objetoReset: ObjetoReset;
   formResetAccount: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, public menuCtrl: MenuController, private router: Router) {
     this.formResetAccount = this.fb.group({
       txtCorreoAsociado: ['', [Validators.required, Validators.maxLength(50), Validators.email]],
       txtPassword: ['', [Validators.required, Validators.maxLength(50)]],
@@ -24,6 +29,7 @@ export class ReestablecerPage implements OnInit {
   }
 
   ngOnInit() {
+    this.menuCtrl.enable(false);
   }
 
   resetAccount(postObj: any) {
@@ -33,6 +39,7 @@ export class ReestablecerPage implements OnInit {
     console.log(this.objetoReset);
     // TODO Call to web service
   }
+
 }
 
 export class ObjetoReset {
