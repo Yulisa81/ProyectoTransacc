@@ -23,6 +23,7 @@ export class FrmTransaccionesPage implements OnInit, IFormMainModule<Transaccion
   private baseEntity: Transaccion;
   public items: Transaccion[] = [];
   transaccion: Transaccion;
+  curUser: SegUsuario;
 
   async action(entity: Transaccion): Promise<void> {
     console.log(entity);
@@ -35,7 +36,7 @@ export class FrmTransaccionesPage implements OnInit, IFormMainModule<Transaccion
     console.log(entity);
     const res = await this.confirmarEliminar();
     if (res) {
-      this.ctrlWebServiceService.delete(entity, 'api/Transaccion').then(() => {
+      this.ctrlWebServiceService.delete(entity, 'api/Transacciones').then(() => {
         this.showRows();
       });
     }
@@ -50,7 +51,7 @@ export class FrmTransaccionesPage implements OnInit, IFormMainModule<Transaccion
   }
 
   showRows() {
-    return this.ctrlWebServiceService.getById(this.baseEntity, 'api/Transacciones').then(res => {
+    return this.ctrlWebServiceService.getById(this.curUser, 'api/Transacciones').then(res => {
       const respuesta = res.json();
       if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
         this.items = respuesta[EnumRequests.EntityList];
@@ -68,7 +69,7 @@ export class FrmTransaccionesPage implements OnInit, IFormMainModule<Transaccion
   }
 
   private editar() {
-    this.storage.set('persona', this.baseEntity).then(() => { this.router.navigate([EnumSegModulo.Persona]); }
+    this.storage.set('Transacciones', this.baseEntity).then(() => { this.router.navigate([EnumSegModulo.Transacciones]); }
     );
   }
 
@@ -103,7 +104,13 @@ export class FrmTransaccionesPage implements OnInit, IFormMainModule<Transaccion
 
   constructor(private router: Router, private ctrlWebServiceService: CtrlWebServiceService,
               public actionSheetCtrl: ActionSheetController, private storage: Storage, private comun: Comun,
-              private alertController: AlertController) { }
+              private alertController: AlertController) {
+                if (this.comun.globalVariable.usuario === null) {
+                  console.log('Error al momento de obtener la información de usuario global.');
+                } else {
+                  this.curUser = this.comun.globalVariable.usuario;
+                }
+               }
 
   ngOnInit() {
     // this.showActionPane('', ''); No debe tener Panel Acción.
