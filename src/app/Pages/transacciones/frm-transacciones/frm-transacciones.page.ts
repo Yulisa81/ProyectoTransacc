@@ -51,7 +51,7 @@ export class FrmTransaccionesPage implements OnInit, IFormMainModule<Transaccion
   }
 
   showRows() {
-    return this.ctrlWebServiceService.getById(this.curUser, 'api/Transacciones').then(res => {
+    return this.ctrlWebServiceService.getById(this.curUser, 'api/TransaccionesPersona').then(res => {
       const respuesta = res.json();
       if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
         this.items = respuesta[EnumRequests.EntityList];

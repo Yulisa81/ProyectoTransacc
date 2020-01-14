@@ -109,7 +109,7 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
   }
 
   private async obtenerPersonas(){
-    return this.ctrlWebService.getAll('api/Personas');
+    return this.ctrlWebService.getAll('api/Persona');
   }
 
 }
