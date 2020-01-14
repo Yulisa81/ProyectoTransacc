@@ -6,5 +6,6 @@ export enum EnumSegModulo {
     CuentaPrincipal = 'frm-cuentas-principal',
     Cuenta = 'frm-cuenta',
     Reestablecer = 'reestablecer',
-    Transacciones = 'transacciones'
+    Transacciones = 'transacciones',
+    Transacciones_Manager = 'frm-transaccion-manager'
 }

@@ -2,15 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { ComponentsModule } from '../../../components/components.module';
 
 import { IonicModule } from '@ionic/angular';
-import { ComponentsModule } from '../../../components/components.module';
-import { FrmTransaccionesPage } from './frm-transacciones.page';
+
+import { FrmTransaccionManagerPage } from './frm-transaccion-manager.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: FrmTransaccionesPage
+    component: FrmTransaccionManagerPage
   }
 ];
 
@@ -19,10 +20,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ComponentsModule,
     IonicModule,
+    ComponentsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [FrmTransaccionesPage]
+  declarations: [FrmTransaccionManagerPage]
 })
-export class FrmTransaccionesPageModule {}
+export class FrmTransaccionManagerPageModule {}

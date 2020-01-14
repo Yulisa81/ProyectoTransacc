@@ -24,49 +24,49 @@
 
             <ion-item>
               <ion-label position="floating">Cuenta Actual:</ion-label>
-              <ion-input formControlName="txtAPaterno" [(ngModel)]='baseEntity.strAPaterno' type="text"></ion-input>
+              <ion-input formControlName="txtAPaterno" [(ngModel)]='baseEntity.id' type="text"></ion-input>
             </ion-item>
             <app-show-error [control]="form.get('txtAPaterno')" [field]="'apellido paterno'" [lenght]='50'
               [extra]="'Solo letras'"></app-show-error>
 
             <ion-item>
               <ion-label position="floating">Persona de Destino:</ion-label>
-              <ion-input formControlName="txtNombreDestinatario" [(ngModel)]='baseEntity.strNombre' type="text"></ion-input>
+              <ion-input formControlName="txtNombreDestinatario" [(ngModel)]='baseEntity.id' type="text"></ion-input>
             </ion-item>
             <app-show-error [control]="form.get('txtNombreDestinatario')" [field]="'nombreDestinatario'" [lenght]='50' [extra]="'Solo letras'">
             </app-show-error>
 
             <ion-item>
               <ion-label position="floating">Cuenta Destino:</ion-label>
-              <ion-input formControlName="txtCuentaDestinatario" [(ngModel)]='baseEntity.strAPaterno' type="text"></ion-input>
+              <ion-input formControlName="txtCuentaDestinatario" [(ngModel)]='baseEntity.id' type="text"></ion-input>
             </ion-item>
             <app-show-error [control]="form.get('txtCuentaDestinatario')" [field]="'cuentaDestinatario'" [lenght]='50'
               [extra]="'Solo letras'"></app-show-error>
 
             <ion-item>
               <ion-label position="floating">Fecha Transacción:</ion-label>
-              <ion-input formControlName="txtFechaTransaccion" [(ngModel)]='baseEntity.strAPaterno' type="datetime"></ion-input>
+              <ion-input formControlName="txtFechaTransaccion" [(ngModel)]='baseEntity.id' type="datetime"></ion-input>
             </ion-item>
             <app-show-error [control]="form.get('txtFechaTransaccion')" [field]="'fecha Transaccion'" [lenght]='50'
               [extra]="'Solo letras'"></app-show-error>
 
               <ion-item>
                 <ion-label position="floating">PIN Cuenta:</ion-label>
-                <ion-input formControlName="txtPIN" [(ngModel)]='baseEntity.strAPaterno' type="text"></ion-input>
+                <ion-input formControlName="txtPIN" [(ngModel)]='baseEntity.id' type="text"></ion-input>
               </ion-item>
               <app-show-error [control]="form.get('txtPIN')" [field]="'pin'" [lenght]='50'
                 [extra]="'Solo letras'"></app-show-error>
 
             <ion-item>
               <ion-label position="floating">Monto Actual:</ion-label>
-              <ion-input formControlName="txtMontoEnviar" [(ngModel)]='baseEntity.strAPaterno' type="number"></ion-input>
+              <ion-input formControlName="txtMontoEnviar" [(ngModel)]='baseEntity.id' type="number"></ion-input>
             </ion-item>
             <app-show-error [control]="form.get('txtAPaterno')" [field]="'monto Actual'" [lenght]='50'
               [extra]="'Solo letras'"></app-show-error>
 
             <ion-item>
               <ion-label position="floating">Cantidad Transferir:</ion-label>
-              <ion-input formControlName="txtMontoEnviar" [(ngModel)]='baseEntity.strAPaterno' type="number"></ion-input>
+              <ion-input formControlName="txtMontoEnviar" [(ngModel)]='baseEntity.id' type="number"></ion-input>
             </ion-item>
             <app-show-error [control]="form.get('txtMontoEnviar')" [field]="'monto enviar'" [lenght]='50'
               [extra]="'Solo letras'"></app-show-error>

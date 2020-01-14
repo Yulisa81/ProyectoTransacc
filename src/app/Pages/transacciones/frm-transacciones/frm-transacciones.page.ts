@@ -69,7 +69,7 @@ export class FrmTransaccionesPage implements OnInit, IFormMainModule<Transaccion
   }
 
   private editar() {
-    this.storage.set('Transacciones', this.baseEntity).then(() => { this.router.navigate([EnumSegModulo.Transacciones]); }
+    this.storage.set('Transacción', this.baseEntity).then(() => { this.router.navigate([EnumSegModulo.Transacciones_Manager]); }
     );
   }
 

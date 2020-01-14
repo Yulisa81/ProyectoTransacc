@@ -1,57 +1,64 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IFormManager } from 'src/app/Interfaces/IFormManager';
 import { Transaccion } from 'src/app/Shared/Entity/Transaccion';
-import { Router } from '@angular/router';
 import { CtrlWebServiceService } from 'src/app/Services/ctrl-web-service.service';
-import { FormBuilder, NgForm, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 import { ActionSheetController } from '@ionic/angular';
 import { Comun } from 'src/Contol/Comun';
 import { FormManagerExtender } from 'src/app/Shared/Extender/FormManagerExtender';
+import { FormBuilder, NgForm, FormGroup } from '@angular/forms';
 import { isNullOrUndefined } from 'util';
 import { SegUsuario } from 'src/app/Shared/Entity/SegUsuario';
 import { EnumRequests } from 'src/app/Shared/Enum/EnumRequest';
 import { EnumNumericValue } from 'src/app/Shared/Enum/EnumNumericValue';
-import { Resource } from 'src/Contol/Resources/Resources';
 import { EnumSegModulo } from 'src/app/Shared/Enum/SegModulo';
+import { Resource } from 'src/Contol/Resources/Resources';
 
 @Component({
-  selector: 'app-frm-transacciones-manager',
-  templateUrl: './frm-transacciones-manager.component.html',
-  styleUrls: ['./frm-transacciones-manager.component.scss'],
+  selector: 'app-frm-transaccion-manager',
+  templateUrl: './frm-transaccion-manager.page.html',
+  styleUrls: ['./frm-transaccion-manager.page.scss'],
 })
-export class FrmTransaccionesManagerComponent implements OnInit, OnDestroy, IFormManager<Transaccion> {
-  form: FormGroup;
-  user: any;
-  baseEntity: Transaccion;
-  actionType: string;
-  loadInformation(entity: Transaccion) {
-    throw new Error("Method not implemented.");
+export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManager<Transaccion> {
+  public form: FormGroup;
+  public user: any;
+  public baseEntity = new Transaccion();
+  private listaPersonas: SegUsuario[];
+  public actionType: string;
+  loadInformation(entity: any) {
   }
-  setEntity() {
-    throw new Error("Method not implemented.");
+  async setEntity() {
+    // Obtener Información para los combos.
+    this.listaPersonas = await this.obtenerPersonas();
   }
   getEntity() {
-    throw new Error("Method not implemented.");
   }
   validateForm(): boolean {
     return true;
   }
   ngOnDestroy(): void {
-    this.storage.remove('Transacción');
+    this.storage.remove('transacción');
   }
 
-  constructor(private router: Router, private ctrlWebService: CtrlWebServiceService, private formBuilder: FormBuilder,
-    public actionSheetCtrl: ActionSheetController, private storage: Storage, private comun: Comun, private extende: FormManagerExtender) { }
+  constructor(private router: Router,
+              private ctrlWebService: CtrlWebServiceService,
+              private formBuilder: FormBuilder,
+              public actionSheetCtrl: ActionSheetController,
+              private storage: Storage,
+              private comun: Comun,
+              private extende: FormManagerExtender) { }
 
   ngOnInit() {
     this.form = this.validForm();
     this.storage.get('Transacción').then((val) => {
       if (!isNullOrUndefined(val)) {
-        //Agregar
+        this.actionType = 'Editar';
         this.baseEntity = val;
       }
-      this.extende.initializeComponent<SegUsuario>(this, val);
+      this.extende.initializeComponent<Transaccion>(this, val);
       console.log('Transacción', val);
+      this.actionType = 'Agregar';
     }).catch(e => this.comun.ctrGeneric.mostrarError(e));
   }
 
@@ -100,4 +107,9 @@ export class FrmTransaccionesManagerComponent implements OnInit, OnDestroy, IFor
       txtMontoEnviar: ['', this.comun.ctrlValidate.OnlyNumersRequired()]
     });
   }
+
+  private async obtenerPersonas(){
+    return this.ctrlWebService.getAll('api/Personas');
+  }
+
 }

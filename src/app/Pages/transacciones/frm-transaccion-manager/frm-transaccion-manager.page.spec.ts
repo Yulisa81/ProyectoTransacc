@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FrmTransaccionesManagerComponent } from './frm-transacciones-manager.component';
+import { FrmTransaccionManagerPage } from './frm-transaccion-manager.page';
 
-describe('FrmTransaccionesManagerComponent', () => {
-  let component: FrmTransaccionesManagerComponent;
-  let fixture: ComponentFixture<FrmTransaccionesManagerComponent>;
+describe('FrmTransaccionManagerPage', () => {
+  let component: FrmTransaccionManagerPage;
+  let fixture: ComponentFixture<FrmTransaccionManagerPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FrmTransaccionesManagerComponent ],
+      declarations: [ FrmTransaccionManagerPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FrmTransaccionesManagerComponent);
+    fixture = TestBed.createComponent(FrmTransaccionManagerPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
