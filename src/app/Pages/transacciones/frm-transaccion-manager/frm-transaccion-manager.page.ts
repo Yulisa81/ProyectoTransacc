@@ -22,35 +22,47 @@ import { Resource } from 'src/Contol/Resources/Resources';
 })
 export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManager<Transaccion> {
   public form: FormGroup;
-  public user: any;
+  public user: SegUsuario;
   public baseEntity = new Transaccion();
   private listaPersonas: SegUsuario[];
   public actionType: string;
+  private fechaActual: Date;
   loadInformation(entity: any) {
   }
+
   async setEntity() {
     // Obtener Información para los combos.
-    this.listaPersonas = await this.obtenerPersonas();
+    this.listaPersonas = await this.obtenerPersonas().then(res => {
+      const respuesta = res.json();
+      if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
+        return respuesta[EnumRequests.EntityList];
+      }
+    });
   }
+
   getEntity() {
   }
+
   validateForm(): boolean {
     return true;
   }
+
   ngOnDestroy(): void {
     this.storage.remove('transacción');
   }
 
   constructor(private router: Router,
-              private ctrlWebService: CtrlWebServiceService,
-              private formBuilder: FormBuilder,
-              public actionSheetCtrl: ActionSheetController,
-              private storage: Storage,
-              private comun: Comun,
-              private extende: FormManagerExtender) { }
+    private ctrlWebService: CtrlWebServiceService,
+    private formBuilder: FormBuilder,
+    public actionSheetCtrl: ActionSheetController,
+    private storage: Storage,
+    private comun: Comun,
+    private extende: FormManagerExtender) { }
 
   ngOnInit() {
     this.form = this.validForm();
+    // Obtener Información del usuario.
+    this.user = this.comun.globalVariable.usuario;
     this.storage.get('Transacción').then((val) => {
       if (!isNullOrUndefined(val)) {
         this.actionType = 'Editar';
@@ -59,6 +71,7 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
       this.extende.initializeComponent<Transaccion>(this, val);
       console.log('Transacción', val);
       this.actionType = 'Agregar';
+      this.fechaActual = new Date();
     }).catch(e => this.comun.ctrGeneric.mostrarError(e));
   }
 
@@ -108,7 +121,7 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
     });
   }
 
-  private async obtenerPersonas(){
+  private async obtenerPersonas() {
     return this.ctrlWebService.getAll('api/Persona');
   }
 
