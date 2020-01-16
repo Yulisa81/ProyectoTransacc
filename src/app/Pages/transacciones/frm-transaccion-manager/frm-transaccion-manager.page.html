@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="form" (ngSubmit)="aceptar()">
+  <form [formGroup]="form" (ngSubmit)="aceptar(this.form.value)">
 
     <ion-item text-center lines="none">
       <ion-label class="accion">[{{actionType}}]</ion-label>
@@ -20,41 +20,46 @@
       <ion-label class="datos">[Datos Personales]</ion-label>
 
       <ion-item>
-        <ion-label position="floating">Cuenta Actual:</ion-label>
-        <ion-input  type="text" disabled >{{this.user.strNombre}}</ion-input>
+        <ion-label position="floating">Nombre Usuario:</ion-label>
+        <ion-input  type="text">{{this.user.strNombre}}</ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Fecha Transacción</ion-label>
-        <ion-datetime displayFormat="MM DD YYYY" value="this.fechaActual" readonly></ion-datetime>
+        <ion-label position="floating">Cuenta Origen:</ion-label>
+        <ion-input  formControlName="txtCuentaOrigen" type="text"></ion-input>
       </ion-item>
-      <app-show-error [control]="form.get('txtFechaTransaccion')" [field]="'txtFechaTransaccion'" [lenght]='50' [extra]="'Solo letras'">
-      </app-show-error>
+
+      <ion-item>
+        <ion-label>Fecha Transacción:</ion-label>
+        <ion-datetime formControlName="dteFechaTransaccion" displayFormat="MM DD YYYY" value="this.fechaActual"></ion-datetime>
+      </ion-item>
 
       <ion-label class="datos">[Datos Destinatario]</ion-label>
 
       <ion-item>
         <ion-label>Usuario Destino:</ion-label>
-        <ion-select value="this.listaPersonas.id" okText="Ok" cancelText="Cancelar">
+        <ion-select formControlName="cmbPersonaDestino" value="this.listaPersonas.id" okText="Ok" cancelText="Cancelar">
           <ion-select-option *ngFor="let el of this.listaPersonas" value="el.id">{{el.strNombre}}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Cuenta Referencia:</ion-label>
-        <ion-input formControlName="txtCuentaDestinatario" [(ngModel)]='baseEntity.id' type="text"></ion-input>
+        <ion-input formControlName="txtCuentaDestinatario" type="text"></ion-input>
       </ion-item>
-      <app-show-error [control]="form.get('txtCuentaDestinatario')" [field]="'txtNombreDestinatario'" [lenght]='50' [extra]="'Solo letras'">
-      </app-show-error>
 
       <ion-label class="datos">[Información Monto]</ion-label>
 
       <ion-item>
         <ion-label position="floating">Monto Transferir:</ion-label>
-        <ion-input formControlName="txtMontoEnviar" [(ngModel)]='baseEntity.id' type="number"></ion-input>
+        <ion-input formControlName="txtMontoEnviar" type="number"></ion-input>
       </ion-item>
-      <app-show-error [control]="form.get('txtMontoEnviar')" [field]="'txtMontoEnviar'" [lenght]='50' [extra]="'Solo letras'">
-      </app-show-error>
+
+      <ion-item>
+        <ion-label position="floating">PIN:</ion-label>
+        <ion-input formControlName="txtPIN" type="number"></ion-input>
+      </ion-item>
+
 
       <div padding>
         <ion-button size="medium" type="submit" expand="block" [disabled]="!form.valid"> Aceptar</ion-button>

@@ -92,18 +92,18 @@ export class FrmCuentasPrincipalPage implements OnInit, IFormMainModule<Cuenta> 
 
   showRows() {
 
-    return this.ctrlWebServiceService.getById(this.basePersona,'api/Cuenta').then(res => {
+    return this.ctrlWebServiceService.getById(this.basePersona, 'api/Cuenta').then(res => {
       const respuesta = res.json();
       if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
         this.items = respuesta[EnumRequests.EntityList];
         this.comun.ctrGeneric.cerrarCargado();
       } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
         this.items = null;
-        this.comun.ctrGeneric.cerrarCargado();        
+        this.comun.ctrGeneric.cerrarCargado();
         this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
       } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
         this.items = null;
-        this.comun.ctrGeneric.cerrarCargado();        
+        this.comun.ctrGeneric.cerrarCargado();
         this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
       }
     });
