@@ -17,6 +17,7 @@ import { Resource } from 'src/Contol/Resources/Resources';
 import { Cuenta } from 'src/app/Shared/Entity/Cuenta';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-frm-transaccion-manager',
@@ -29,7 +30,7 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
   public baseEntity = new Transaccion();
   private listaPersonas: SegUsuario[];
   public actionType: string;
-  private fechaActual: Date;
+  private fechaActual =  new Date().toISOString();
   loadInformation(entity: any) {
   }
 
@@ -78,8 +79,11 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
     }).catch(e => this.comun.ctrGeneric.mostrarError(e));
   }
 
-  private aceptar(postObj: any) {
-    if (!this.validarTransaccion(postObj)) { return; }
+  private async aceptar(postObj: any) {
+    if (!await this.validarTransaccion(postObj)) {
+      this.comun.ctrGeneric.alertaInformativa(Resource.MES_VALORES_INVALIDOS_TRANSACCION);
+      return;
+    }
     console.log(this.baseEntity);
     this.comun.ctrGeneric.mostrarCargando();
     if (isNullOrUndefined(this.baseEntity.id)) {
@@ -117,13 +121,12 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
 
   private validForm() {
     return this.formBuilder.group({
-      txtNombreDestinatario: ['', Validators.required],
       cmbPersonaDestino: ['', Validators.required],
-      txtCuentaOrigen: ['', Validators.required, Validators.maxLength(13)],
-      txtCuentaDestinatario: ['', Validators.required, Validators.maxLength(13)],
+      txtCuentaOrigen: ['', [Validators.required, Validators.maxLength(13)]],
+      txtCuentaDestinatario: ['', [Validators.required, Validators.maxLength(13)]],
       dteFechaTransaccion: ['', Validators.required],
-      txtPIN: ['', Validators.required, Validators.maxLength(4)],
-      txtMontoEnviar: [0, Validators.required, Validators.maxLength(13)]
+      txtPIN: ['', [Validators.required, Validators.maxLength(4)]],
+      txtMontoEnviar: [0, [Validators.required, Validators.maxLength(13)]]
     });
   }
 
@@ -141,7 +144,9 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
       const response = res.json();
       return response[EnumRequests.EntityList];
     });
-    const cuentasDestinatario: Cuenta[] = await this.obtenerCuentasPersona(postObj.txtCuentaDestinatario).then(res => {
+    const userDest = new SegUsuario();
+    userDest.id = postObj.cmbPersonaDestino;
+    const cuentasDestinatario: Cuenta[] = await this.obtenerCuentasPersona(userDest).then(res => {
       const response = res.json();
       return response[EnumRequests.EntityList];
     });
@@ -161,8 +166,10 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
       this.baseEntity.idComCatEstadoTransaccion = 1; // Activo.
       this.baseEntity.idComCuentaEmisor = cuentaSelecUser.id;
       this.baseEntity.idComCuentaReceptor = cuentaSelecDest.id;
+      this.baseEntity.curMonto = postObj.txtMontoEnviar;
+      //this.baseEntity.dteFecha = new Date(this.fechaActual);
     } else {
-      // EDITAR
+      // TRANSACCIONES NO SON EDITABLES.
     }
   }
 
