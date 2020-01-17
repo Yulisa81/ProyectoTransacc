@@ -75,7 +75,7 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
       this.extende.initializeComponent<Transaccion>(this, val);
       console.log('Transacción', val);
       this.actionType = 'Agregar';
-      this.fechaActual = new Date();
+      this.fechaActual = new Date().toISOString();
     }).catch(e => this.comun.ctrGeneric.mostrarError(e));
   }
 
