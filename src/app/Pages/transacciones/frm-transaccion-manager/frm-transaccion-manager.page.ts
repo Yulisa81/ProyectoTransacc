@@ -18,6 +18,7 @@ import { Cuenta } from 'src/app/Shared/Entity/Cuenta';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-frm-transaccion-manager',
@@ -71,11 +72,15 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
       if (!isNullOrUndefined(val)) {
         this.actionType = 'Editar';
         this.baseEntity = val;
+      } else {
+        this.extende.initializeComponent<Transaccion>(this, val);
+        console.log('Transacción', val);
+        this.baseEntity = new Transaccion();
+        this.baseEntity.id = 0;
+        console.log('Inicializando baseEntity: ' + this.baseEntity);
+        this.actionType = 'Agregar';
+        this.fechaActual = new Date().toISOString();
       }
-      this.extende.initializeComponent<Transaccion>(this, val);
-      console.log('Transacción', val);
-      this.actionType = 'Agregar';
-      this.fechaActual = new Date().toISOString();
     }).catch(e => this.comun.ctrGeneric.mostrarError(e));
   }
 
@@ -98,6 +103,9 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
           this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
         }
+      }).catch(error => {
+        console.log('Error', error);
+        this.comun.ctrGeneric.cerrarCargado();
       });
     } else {
       this.ctrlWebService.update(this.baseEntity, 'api/Transacciones').then(res => {
@@ -124,9 +132,9 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
       cmbPersonaDestino: ['', Validators.required],
       txtCuentaOrigen: ['', [Validators.required, Validators.maxLength(13)]],
       txtCuentaDestinatario: ['', [Validators.required, Validators.maxLength(13)]],
-      dteFechaTransaccion: ['', Validators.required],
+      dteFechaTransaccion: [this.fechaActual, Validators.required],
       txtPIN: ['', [Validators.required, Validators.maxLength(4)]],
-      txtMontoEnviar: [0, [Validators.required, Validators.maxLength(13)]]
+      txtMontoEnviar: ['', [Validators.required, Validators.maxLength(13)]]
     });
   }
 
@@ -157,9 +165,9 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
     if (isNullOrUndefined(cuentaSelecUser)) {return false; }
     if (isNullOrUndefined(cuentaSelecDest)) {return false; }
     // VERIFICA QUE LA CUENTA ORIGEN TENGA SALDO SUFICIENTE AL ENVIADO
-    if (postObj.txtMontoEnviar > cuentaSelecUser.curSaldo) { return false; }
+    if (postObj.txtMontoEnviar <= 0 || postObj.txtMontoEnviar > cuentaSelecUser.curSaldo) { return false; }
     // VERIFICA QUE EL PIN INGRESADO CORRESPONDA A LA CUENTA SELECCIONADA
-    if (postObj.txtPIN !== cuentaSelecUser.strPin) { return false; }
+    if (postObj.txtPIN.toString() !== cuentaSelecUser.strPin) { return false; }
     // REALIZA LAS ASIGNACIONES A LA TRANSACCIÓN
     if (this.baseEntity.id === 0) {
       // AGREGAR
@@ -167,10 +175,11 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
       this.baseEntity.idComCuentaEmisor = cuentaSelecUser.id;
       this.baseEntity.idComCuentaReceptor = cuentaSelecDest.id;
       this.baseEntity.curMonto = postObj.txtMontoEnviar;
-      //this.baseEntity.dteFecha = new Date(this.fechaActual);
+      this.baseEntity.dteFecha = this.fechaActual;
     } else {
       // TRANSACCIONES NO SON EDITABLES.
     }
+    return true;
   }
 
 }
