@@ -76,7 +76,6 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
         this.extende.initializeComponent<Transaccion>(this, val);
         console.log('Transacción', val);
         this.baseEntity = new Transaccion();
-        this.baseEntity.id = 0;
         console.log('Inicializando baseEntity: ' + this.baseEntity);
         this.actionType = 'Agregar';
         this.fechaActual = new Date().toISOString();
@@ -171,7 +170,6 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
     // REALIZA LAS ASIGNACIONES A LA TRANSACCIÓN
     if (this.baseEntity.id === 0) {
       // AGREGAR
-      this.baseEntity.idComCatEstadoTransaccion = 1; // Activo.
       this.baseEntity.idComCuentaEmisor = cuentaSelecUser.id;
       this.baseEntity.idComCuentaReceptor = cuentaSelecDest.id;
       this.baseEntity.curMonto = postObj.txtMontoEnviar;
