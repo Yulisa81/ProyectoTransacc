@@ -21,7 +21,8 @@
 
       <ion-item>
         <ion-label position="floating">Nombre Usuario:</ion-label>
-        <ion-label> {{this.user.strNombre}}</ion-label>
+        <ion-input type="text" value="{{this.user.strNombre}}" disabled></ion-input>
+
       </ion-item>
 
       <ion-item>
@@ -35,7 +36,7 @@
 
       <ion-item>
         <ion-label position="floating">Fecha Transacción:</ion-label>
-        <ion-datetime formControlName="dteFechaTransaccion" displayFormat="YYYY-MM-DD" value="this.fechaActual"></ion-datetime>
+        <ion-datetime formControlName="dteFechaTransaccion" displayFormat="YYYY-MM-DD" disabled></ion-datetime>
       </ion-item>
 
       <ion-label class="datos">[DATOS DESTINATARIO]</ion-label>
