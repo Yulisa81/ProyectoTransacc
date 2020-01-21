@@ -94,28 +94,29 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
       this.ctrlWebService.create(this.baseEntity, 'api/Transacciones').then(res => {
         const respuesta = res.json();
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
-          this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
           this.comun.ctrGeneric.cerrarCargado();
+          this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
           this.router.navigate([EnumSegModulo.Transacciones]);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
+          this.comun.ctrGeneric.cerrarCargado();
           this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
+          this.comun.ctrGeneric.cerrarCargado();
           this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
         }
-      }).catch(error => {
-        console.log('Error', error);
-        this.comun.ctrGeneric.cerrarCargado();
       });
     } else {
       this.ctrlWebService.update(this.baseEntity, 'api/Transacciones').then(res => {
         const respuesta = res.json();
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
-          this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_EDITAR);
           this.comun.ctrGeneric.cerrarCargado();
+          this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_EDITAR);
           this.router.navigate([EnumSegModulo.PersonaPrincipal]);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
+          this.comun.ctrGeneric.cerrarCargado();
           this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.MenosUno) {
+          this.comun.ctrGeneric.cerrarCargado();
           this.comun.ctrGeneric.alertaInformativa(Resource.MES_OCURRIO_ERROR_INESPERADO);
         }
       });
@@ -168,12 +169,13 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
     // VERIFICA QUE EL PIN INGRESADO CORRESPONDA A LA CUENTA SELECCIONADA
     if (postObj.txtPIN.toString() !== cuentaSelecUser.strPin) { return false; }
     // REALIZA LAS ASIGNACIONES A LA TRANSACCIÓN
-    if (this.baseEntity.id === 0) {
+    if (isNullOrUndefined(this.baseEntity.id)) {
       // AGREGAR
       this.baseEntity.idComCuentaEmisor = cuentaSelecUser.id;
       this.baseEntity.idComCuentaReceptor = cuentaSelecDest.id;
       this.baseEntity.curMonto = postObj.txtMontoEnviar;
       this.baseEntity.dteFecha = this.fechaActual;
+      this.baseEntity.idComCatEstadoTransaccion = EnumNumericValue.Uno;
     } else {
       // TRANSACCIONES NO SON EDITABLES.
     }
