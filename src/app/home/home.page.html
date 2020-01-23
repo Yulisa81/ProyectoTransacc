@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      TRANSCAPP
+      TRANSACT APP
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,8 +12,8 @@
 <ion-content>
  
   <ion-card>
-    <ion-card-header>
-        <ion-item lines="none">
+    <ion-card-header color="dark">
+        <ion-item lines="none" color="dark">
             <ion-avatar slot="start">
               <ion-img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"></ion-img>
             </ion-avatar>
@@ -24,25 +24,20 @@
     </ion-card-header>
     <ion-card-content>
       <ion-item lines="none">
-
-        <ion-label>Número Cuenta:</ion-label>
+        <ion-label *ngIf="user !== null">Correo Principal :</ion-label>
         <ion-label>
-          <!--{persona}--><ion-badge color="medium">8855447744</ion-badge>
+        <ion-badge color="medium">{{user.strCorreoElectronico}}</ion-badge>
         </ion-label>
         <br>
         
-
       </ion-item>
       <ion-item lines="none">
-
         <ion-label>Saldo: $</ion-label>
         <ion-label>
-          <!--{persona}--><ion-badge color="primary">856.02</ion-badge>
+        <ion-badge color="primary">856.02</ion-badge>
         </ion-label>
         <br>
       </ion-item>
     </ion-card-content>
-
   </ion-card>
-
 </ion-content>

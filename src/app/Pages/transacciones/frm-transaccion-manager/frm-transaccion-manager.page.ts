@@ -31,7 +31,8 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
   public baseEntity = new Transaccion();
   private listaPersonas: SegUsuario[];
   public actionType: string;
-  private fechaActual =  new Date().toISOString();
+  private fechaActual = new Date().toISOString();
+
   loadInformation(entity: any) {
   }
 
@@ -159,11 +160,11 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
       return response[EnumRequests.EntityList];
     });
     // OBTIENE LAS CUENTAS CORRESPONDIENTES SPECIFICADAS (EMISOR Y RECEPTOR)
-    const cuentaSelecUser = cuentasPersonales.find( el => el.strNumCuenta === postObj.txtCuentaOrigen);
+    const cuentaSelecUser = cuentasPersonales.find(el => el.strNumCuenta === postObj.txtCuentaOrigen);
     const cuentaSelecDest = cuentasDestinatario.find(el => el.strNumCuenta === postObj.txtCuentaDestinatario);
     // VERIFICA QUE EXISTAN DICHAS CUENTAS (EMISOR Y RECEPTOR)
-    if (isNullOrUndefined(cuentaSelecUser)) {return false; }
-    if (isNullOrUndefined(cuentaSelecDest)) {return false; }
+    if (isNullOrUndefined(cuentaSelecUser)) { return false; }
+    if (isNullOrUndefined(cuentaSelecDest)) { return false; }
     // VERIFICA QUE LA CUENTA ORIGEN TENGA SALDO SUFICIENTE AL ENVIADO
     if (postObj.txtMontoEnviar <= 0 || postObj.txtMontoEnviar > cuentaSelecUser.curSaldo) { return false; }
     // VERIFICA QUE EL PIN INGRESADO CORRESPONDA A LA CUENTA SELECCIONADA
@@ -177,7 +178,6 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
       this.baseEntity.dteFecha = this.fechaActual;
       this.baseEntity.idComCatEstadoTransaccion = EnumNumericValue.Uno;
     } else {
-      // TRANSACCIONES NO SON EDITABLES.
     }
     return true;
   }
