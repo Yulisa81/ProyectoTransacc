@@ -81,7 +81,7 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
     if (isNullOrUndefined(this.baseEntity.id)) {
 
       this.ctrlWebServiceService.create(this.baseEntity, 'api/Persona').then(res => {
-        let respuesta = res.json();
+        const respuesta = res.json();
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
           this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
           this.comun.ctrGeneric.cerrarCargado();
@@ -96,7 +96,7 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
     } else {
 
       this.ctrlWebServiceService.update(this.baseEntity, 'api/Persona').then(res => {
-        let respuesta = res.json();
+        const respuesta = res.json();
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
           this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_EDITAR);
           this.comun.ctrGeneric.cerrarCargado();
@@ -112,7 +112,7 @@ export class FrmPersonaPage implements OnInit, OnDestroy, IFormManager<SegUsuari
 
   }
   registro2(form: NgForm) {
-    console.log(form)
+    console.log(form);
   }
   //#endregion
 

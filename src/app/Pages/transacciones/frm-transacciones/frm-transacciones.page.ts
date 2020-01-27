@@ -11,6 +11,7 @@ import { EnumRequests } from 'src/app/Shared/Enum/EnumRequest';
 import { EnumNumericValue } from 'src/app/Shared/Enum/EnumNumericValue';
 import { Resource } from 'src/Contol/Resources/Resources';
 import { EnumSegModulo } from 'src/app/Shared/Enum/SegModulo';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-frm-transacciones',
@@ -44,10 +45,12 @@ export class FrmTransaccionesPage implements OnInit, IFormMainModule<Transaccion
 
   showActionPane(module: string, segUsuario: any): void {
     this.botones.push({
-      text: 'Cancelar', role: 'cancel', icon: 'close'});
+      text: 'Cancelar', role: 'cancel', icon: 'close'
+    });
     this.botones.push({
       text: 'Cuentas', icon: 'card',
-      handler: () => { this.cuentas(); }});
+      handler: () => { this.cuentas(); }
+    });
   }
 
   showRows() {
@@ -105,15 +108,14 @@ export class FrmTransaccionesPage implements OnInit, IFormMainModule<Transaccion
   constructor(private router: Router, private ctrlWebServiceService: CtrlWebServiceService,
               public actionSheetCtrl: ActionSheetController, private storage: Storage, private comun: Comun,
               private alertController: AlertController) {
-                if (this.comun.globalVariable.usuario === null) {
-                  console.log('Error al momento de obtener la información de usuario global.');
-                } else {
-                  this.curUser = this.comun.globalVariable.usuario;
-                }
-               }
+    if (isNullOrUndefined(this.comun.globalVariable.usuario)) {
+      console.log('No se obtuvo el usuario global.');
+    } else {
+      this.curUser = this.comun.globalVariable.usuario;
+    }
+  }
 
   ngOnInit() {
-    // this.showActionPane('', ''); No debe tener Panel Acción.
     this.showRows();
   }
 
