@@ -53,8 +53,10 @@ export function checkMatchValidator(f1: string, f2: string) {
     const f1Val = frm.get(f1).value;
     const f2Val = frm.get(f2).value;
     if (f1Val !== '' && f1Val !== f2Val) {
-      return { notMatch: 'Las contraseñas no coinciden' };
+      console.log('No coinciden los valores.', frm);
+      return { notMatch: true };
     }
+    console.log('Coinciden los valores', frm);
     return null;
   };
 }

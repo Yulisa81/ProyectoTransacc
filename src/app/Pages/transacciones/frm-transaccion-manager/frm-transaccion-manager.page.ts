@@ -95,9 +95,9 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
       this.ctrlWebService.create(this.baseEntity, 'api/Transacciones').then(res => {
         const respuesta = res.json();
         if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Cero) {
+          this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
           this.comun.ctrGeneric.cerrarCargado();
           this.router.navigate([EnumSegModulo.Transacciones]);
-          this.comun.ctrGeneric.alertaInformativa(Resource.MES_OPERACION_EXITO_GUARDAR);
         } else if (respuesta[EnumRequests.StatusCode] === EnumNumericValue.Uno) {
           this.comun.ctrGeneric.cerrarCargado();
           this.comun.ctrGeneric.alertaInformativa(respuesta[EnumRequests.Message]);
