@@ -17,7 +17,7 @@
 
   <ion-list>
     <ion-item-sliding #slidingItem *ngFor="let item of items">
-      <ion-item (click)="showSubMenus(item)">
+      <ion-item>
        <!-- <ion-icon slot="start"></ion-icon>-->
         <ion-avatar slot="start">
           <ion-img src="https://png.pngtree.com/template/20190514/ourlarge/pngtree-history-money-transaction-icon-for-website-image_152123.jpg"></ion-img>
@@ -32,7 +32,7 @@
       </ion-item>
 
       <ion-item-options>
-        <ion-item-option color="default" (click)="accion()">
+        <ion-item-option color="default" (click)="action(item)">
           <ion-icon name="eye"></ion-icon>Ver
         </ion-item-option>
       </ion-item-options>

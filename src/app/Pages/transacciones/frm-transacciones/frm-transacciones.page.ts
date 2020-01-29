@@ -33,7 +33,7 @@ export class FrmTransaccionesPage implements OnInit, IFormMainModule<Transaccion
   }
 
   async delete(entity) {
-    // obtener la accion del nombre del boton
+    // LAS TRANSACCIONES NO SE DEBEN ELIMINAR.
     console.log(entity);
     const res = await this.confirmarEliminar();
     if (res) {
@@ -44,13 +44,7 @@ export class FrmTransaccionesPage implements OnInit, IFormMainModule<Transaccion
   }
 
   showActionPane(module: string, segUsuario: any): void {
-    this.botones.push({
-      text: 'Cancelar', role: 'cancel', icon: 'close'
-    });
-    this.botones.push({
-      text: 'Cuentas', icon: 'card',
-      handler: () => { this.cuentas(); }
-    });
+    // NO SE DEBE IMPLEMENTAR AQUI.
   }
 
   showRows() {

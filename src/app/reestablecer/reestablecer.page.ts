@@ -33,6 +33,8 @@ export class ReestablecerPage implements OnInit {
   }
 
   resetAccount(postObj: any) {
+    console.log('Actualmente en desarrollo');
+    return;
     this.objetoReset.strCorreo = postObj.txtCorreoAsociado;
     this.objetoReset.strPassword = postObj.strPassword;
     this.objetoReset.strPasswordCfrm = postObj.strPasswordCfrm;

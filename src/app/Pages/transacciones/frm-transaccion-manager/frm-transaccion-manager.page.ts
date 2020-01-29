@@ -66,14 +66,22 @@ export class FrmTransaccionManagerPage implements OnInit, OnDestroy, IFormManage
               private extende: FormManagerExtender) { }
 
   ngOnInit() {
+    // INICIALIZAR FORMULARIO.
     this.form = this.validForm();
-    // Obtener Información del usuario.
+    // OBTENER INFORMACIÓN DEL USUARIO.
     this.user = this.comun.globalVariable.usuario;
+    // OBTIENE LA TRANSACCIÓN.
     this.storage.get('Transacción').then((val) => {
       if (!isNullOrUndefined(val)) {
-        this.actionType = 'Editar';
-        this.baseEntity = val;
+        // EDITAR (VISUALIZAR).
+        this.actionType = 'Visualizar';
+        this.form.disable();
+        this.form.get('txtCuentaOrigen').patchValue('*****');
+        this.form.get('txtPIN').patchValue('*****');
+        this.form.get('txtCuentaDestinatario').patchValue('*****');
+        this.form.get('txtMontoEnviar').patchValue(this.baseEntity.curMonto);
       } else {
+        // AGREGAR.
         this.extende.initializeComponent<Transaccion>(this, val);
         console.log('Transacción', val);
         this.baseEntity = new Transaccion();
